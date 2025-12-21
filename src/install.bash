@@ -25,7 +25,7 @@ install() {
     local file="$1"
     local filename=$(basename "$file")
     cp "$file" "/usr/local/bin/$filename"
-    if [[ $? != 1 ]]; then
+    if [[ $? != 0 ]]; then
 	printf "\3[31mUnable to install file.\n\e[34mTry running as root or changing ownership of '/usr/local/bin'\n\e[0m"
     fi
 }
