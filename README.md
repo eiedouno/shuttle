@@ -7,7 +7,7 @@ A simple way to create and manage large scripts.
 ## Installation
 
 A built release can be found inside the [releases](https://github.com/eiedouno/shuttle/releases) tab.<br>
-Or you can [build from source]().
+Or you can [build from source](https://github.com/eiedouno/shuttle/tree/main?tab=readme-ov-file#building-from-source).
 
 ## Documentation
 
