@@ -3,6 +3,9 @@ main() {
 
     : > "$outfile"
     for f in ${filtered[@]}; do
+	tput sc
+	printf "\e[34mBuilding $f ..."
+	sleep 0.01
 	func_name="${f#$dir/}"
 	func_name="${func_name%.bash}"
 	func_name="${func_name//[\/.]/_}"
@@ -12,7 +15,6 @@ main() {
 		add "$f"
 		printf "}\n\n\n"
 	    } >> "$outfile"
-	    continue
 	else
 	    {
 		printf "%s() {\n" "$func_name"
@@ -20,6 +22,10 @@ main() {
 		printf "}\n\n\n"
 	    } >> "$outfile"
 	fi
+	tput rc
+	printf "%.0s " $(seq 1 $((cols)))
+	tput rc
+	printf "\e[32mBuilt $f\n\e[0m"
     done
 
     printf "src_main \"\$@\"\n" >> "$outfile"
@@ -55,7 +61,7 @@ source_clean() {
 
 add() {
     while IFS= read -r line || [ -n "$line" ]; do
-	echo "    $line"
+	echo "$line"
     done < "$1"
 }
 

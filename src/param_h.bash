@@ -45,7 +45,7 @@ param_h2() {
 	    ;;
 
 	r|run)
-	    source ./src/run.bash "$2"
+	    source ./src/run.bash "$@"
 	    ;;
 
 	install)

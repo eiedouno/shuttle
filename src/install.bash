@@ -24,10 +24,13 @@ main() {
 install() {
     local file="$1"
     local filename=$(basename "$file")
+    filename="${filename%.bash}"
     cp "$file" "/usr/local/bin/$filename"
     if [[ $? != 0 ]]; then
-	printf "\3[31mUnable to install file.\n\e[34mTry running as root or changing ownership of '/usr/local/bin'\n\e[0m"
+	printf "\e[31mUnable to install file.\n\e[34mTry running as root or changing ownership of '/usr/local/bin'\n\e[0m"
+    else
+	printf "\e[32mSuccessfully installed $filename.\n\e[0m"
     fi
 }
 
-main
+main "$@"

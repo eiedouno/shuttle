@@ -1,1 +1,1 @@
-echo todo
+xdg-open "https://github.com/eiedouno/shuttle/wiki"
