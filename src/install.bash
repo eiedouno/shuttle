@@ -12,6 +12,9 @@ main() {
 
     elif [ -f "$1" ]; then
 	install $1
+    elif [[ "$1" == "" ]]; then
+	source ./src/build.bash "."
+	install $outfile
     else
 	printf "\e[31mUnknown file type '$1'.\n\e[0m"
 	exit 1
