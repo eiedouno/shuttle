@@ -2,7 +2,7 @@
 
 > The script file package manager.
 
-A simple way to create and manage large scripts.
+A simple way to create and manage complex scripts.
 
 ## Installation
 
@@ -18,7 +18,6 @@ Documentation about building with shuttle can be found in the [wiki](https://git
 ### Requirements
 
 * A working linux system
-* Shuttle
 
 ### Building
 
@@ -32,7 +31,7 @@ cd shuttle
 With shuttle, just run:
 
 ```
-shuttle build
+shuttle install
 ```
 
 If you don't have shuttle installed, you can run the shuttle you just downloaded.
