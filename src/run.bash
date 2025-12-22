@@ -1,0 +1,24 @@
+main() {
+    if [ -d "$2" ]; then
+
+	if [[ "$2" == "" ]]; then
+	    dir="$PWD"
+	else
+	    dir="$(realpath $1)"
+	fi
+
+	source ./src/build.bash "$dir"
+	$outfile ${@:3}
+
+    elif [ -f "$2" ]; then
+	$2
+    elif [[ "$2" == "" ]]; then
+	source ./src/build.bash "."
+	$outfile ${@:3}
+    else
+	printf "\e[31mUnknown file or directory '$2'.\n\e[0m"
+	exit 1
+    fi
+}
+
+main "$@"
