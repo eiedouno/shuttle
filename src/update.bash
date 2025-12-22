@@ -1,5 +1,5 @@
 main() {
-    rm ~/.cache/shuttle/shuttle
+    rm -rf ~/.cache/shuttle/shuttle
     git clone https://github.com/eiedouno/shuttle ~/.cache/shuttle/shuttle
     source ./src/install.bash ~/.cache/shuttle/shuttle
 }
