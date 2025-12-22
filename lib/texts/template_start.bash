@@ -1,5 +1,5 @@
 printf "
-\b#!/usr/bin/bash
+\e[A#!/usr/bin/bash
 # .ignore
 
 
