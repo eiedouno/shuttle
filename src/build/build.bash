@@ -52,6 +52,20 @@ clean() {
 }
 
 source_clean() {
+    local yes=false
+    local yozo
+    
+    for f in "${filtered[@]}"; do
+	yozo="${f#$dir/}"
+	if [[ $@ == *"$yozo"* ]]; then
+	    yes=true
+	fi
+    done
+
+    if ! $yes; then
+	return
+    fi
+
     local allelse="${@:3}"
     local source_fn="${2#*./}"
     local source_fn="${source_fn%.bash*}"

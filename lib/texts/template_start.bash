@@ -1,5 +1,5 @@
-printf "
-\e[A#!/usr/bin/bash
+
+printf "#!/usr/bin/bash
 # .ignore
 
 

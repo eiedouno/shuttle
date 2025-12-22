@@ -18,6 +18,7 @@ main() {
 	    continue
 	fi
 
+	# Ignore it's own build
 	if [[ "$f" == "$dir/$name.bash" ]]; then
 	    continue
 	fi

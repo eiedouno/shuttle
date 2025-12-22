@@ -8,6 +8,7 @@ main() {
 
     create_layout
     template
+    printf "\e[34mCreated new project: $name\n\e[0m"
 }
 
 create_layout() {
