@@ -39,4 +39,4 @@ main() {
     fi
 }
 
-main
+main "$@"

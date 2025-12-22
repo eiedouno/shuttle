@@ -5,7 +5,7 @@ The script file package manager.
 Usage: \e[0m
 	shuttle [option]
 	shuttle [command]
-
+\e[34m
 Options: \e[0m
     -u, --update	Fetch the latest update
     -v,	--version	Print version, info and exit

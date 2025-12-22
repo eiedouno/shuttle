@@ -6,8 +6,7 @@ A simple way to create and manage complex scripts.
 
 ## Installation
 
-A built release can be found inside the [releases](https://github.com/eiedouno/shuttle/releases) tab.<br>
-Or you can [build from source](https://github.com/eiedouno/shuttle#building-from-source).
+You can [build from source](https://github.com/eiedouno/shuttle#building-from-source).
 
 ## Documentation
 
@@ -17,7 +16,8 @@ Documentation about building with shuttle can be found in the [wiki](https://git
 
 ### Requirements
 
-* A working linux system
+* A working linux system<br>
+(If you have a usable linux system, you have zsh or bash.)
 
 ### Building
 

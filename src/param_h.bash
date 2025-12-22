@@ -3,17 +3,14 @@ param_h1() {
 
 	-h|--help)
 	    source ./lib/texts/usage.bash
-	    exit 0
 	    ;;
 
 	-v|--version)
 	    source ./lib/texts/version.bash
-	    exit 0
 	    ;;
 
 	-u|--update)
-	    echo todo
-	    exit 0
+	    source ./src/update.bash
 	    ;;
 	*)
 	    param_h2 "$@"
@@ -58,6 +55,7 @@ param_h2() {
 
 	*)
 	    printf "\e[31mCommand not known \'$1\'.\n\e[34mTry \'shuttle -h\'\n\e[0m"
+	    exit 1
     esac
 }
 
