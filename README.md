@@ -2,7 +2,7 @@
 
 > The script file package manager.
 
-A simple way to create and manage complex scripts.
+A simple way to create and manage complex scripts. Inspired by Cargo.
 
 ## Installation
 
