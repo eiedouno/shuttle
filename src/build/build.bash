@@ -4,7 +4,6 @@ main() {
     : > "$outfile"
     for f in ${filtered[@]}; do
 	sleep 0.01
-	tput sc
 	printf "\e[34mBuilding $f ..."
 	func_name="${f#$dir/}"
 	func_name="${func_name%.bash}"
@@ -22,9 +21,7 @@ main() {
 		printf "}\n\n\n"
 	    } >> "$outfile"
 	fi
-	tput rc
-	printf "%.0s " $(seq 1 $((cols)))
-	tput rc
+	printf "\e[1K\e[1G"
 	printf "\e[32mBuilt $f\n\e[0m"
     done
 
