@@ -3,6 +3,7 @@ main() {
 
     : > "$outfile"
     for f in ${filtered[@]}; do
+	sleep 0.01
 	tput sc
 	printf "\e[34mBuilding $f ..."
 	func_name="${f#$dir/}"
