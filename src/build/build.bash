@@ -5,7 +5,6 @@ main() {
     for f in ${filtered[@]}; do
 	tput sc
 	printf "\e[34mBuilding $f ..."
-	sleep 0.01
 	func_name="${f#$dir/}"
 	func_name="${func_name%.bash}"
 	func_name="${func_name//[\/.]/_}"
