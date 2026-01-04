@@ -1,5 +1,5 @@
 
-printf "#!/usr/bin/bash
+printf "#!/usr/bin/env bash
 # .ignore
 
 

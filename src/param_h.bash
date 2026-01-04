@@ -54,13 +54,13 @@ param_h2() {
 	    ;;
 
 	*)
-	    printf "\e[31mCommand not known \'$1\'.\n\e[34mTry \'shuttle -h\'\n\e[0m"
+	    printf "${C_ERR}Command not known \'$1\'.$C_RS\n${C_B}Try \'shuttle -h\'\n$C_RS"
 	    exit 1
     esac
 }
 
 if [[ "$#" == "0" ]]; then
-    printf "\e[31mCommand not specified.\n\e[34mTry \'shuttle -h\'.\n\e[0m"
+    printf "${C_ERR}Command not specified.$C_RS\n${C_B}Try \'shuttle -h\'.\n$C_RS"
     exit 1
 fi
 

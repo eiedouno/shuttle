@@ -1,6 +1,6 @@
 main() {
     if [[ $# == 0 ]]; then
-	printf "\e[31mNo Directory Specified.\n\e[34mTry \'shuttle help new\'\n\e[0m"
+	printf "${C_ERR}No Directory Specified.$C_RS\n${C_B}Try \'shuttle help new\'\n$C_RS"
     fi
 
     dir="$(realpath $1)"
@@ -8,7 +8,7 @@ main() {
 
     create_layout
     template
-    printf "\e[34mCreated new project: $name\n\e[0m"
+    printf "${C_B}Created new project: $name\n$C_RS"
 }
 
 create_layout() {

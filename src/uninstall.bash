@@ -2,7 +2,7 @@ main() {
     if [[ -f "/usr/local/bin/$1" ]]; then
 	rm "/usr/local/bin/$1"
 	if [[ $? == 0 ]]; then
-	    printf "\e[32mSuccessfully uninstalled $1.\n\e[0m"
+	    printf "${C_P}Successfully uninstalled $1.\n$C_RS"
 	else
 	    bruh
 	fi
@@ -12,7 +12,7 @@ main() {
 }
 
 bruh() { 
-    printf "\e[31mUnable to uninstall.\n\e[34mTry running as root or changing the ownership of '/usr/local/bin'.\n\e[0m"
+    printf "${C_ERR}Unable to uninstall.${C_RS}\n${C_B}Try running as root or changing the ownership of '/usr/local/bin'.\nOr the file might already be uninstalled.\n$C_RS"
     exit 1
 }
 

@@ -7,7 +7,7 @@ main() {
     case $2 in
 
 	build)
-	    printf "\e[34mUsage: shuttle build [directory]\n\e[0m"
+	    printf "${C_B}Usage: shuttle build [directory]\n$C_RS"
 	    ;;
 
 	docs)
@@ -15,23 +15,23 @@ main() {
 	    ;;
 
 	new)
-	    printf "\e[34mUsage: shuttle new <directory>\n\e[0m"
+	    printf "${C_B}Usage: shuttle new <directory>\n$C_RS"
 	    ;;
 
 	init)
-	    printf "\e[34mUsage: shuttle init\n\e[0m"
+	    printf "${C_B}Usage: shuttle init\n$C_RS"
 	    ;;
 
 	run)
-	    printf "\e[34mUsage: shuttle run [directory]\n\e[0m"
+	    printf "${C_B}Usage: shuttle run [directory]\n$C_RS"
 	    ;;
 
-	bro)
-	    printf "\e[32mRead the docs bro DX\n\e[0m"
+	help*)
+	    printf "${C_G}Read the docs bro DX\n$C_RS"
 	    ;;
 
 	*)
-	    printf "\e[31mCommand not found \'$2\'.\n\e[34mTry \'shuttle -h\'.\n\e[0m"
+	    printf "${C_ERR}Command not found \'$2\'.${C_RS}\n${C_B}Try \'shuttle -h\'.\n$C_RS"
 	    ;;
     esac
 }

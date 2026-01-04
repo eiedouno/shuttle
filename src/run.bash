@@ -16,7 +16,7 @@ main() {
 	source ./src/build.bash "."
 	$outfile ${@:3}
     else
-	printf "\e[31mUnknown file or directory '$2'.\n\e[0m"
+	printf "${C_ERR}Unknown file or directory '$2'.\n$C_RS"
 	exit 1
     fi
 }

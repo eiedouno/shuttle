@@ -6,4 +6,8 @@ fi
 
 name="$(basename $dir)"
 
-source ./src/build/filter.bash
+if [[ -f "$dir/src/main.bash" ]]; then
+    source ./src/build/filter.bash
+else
+    printf "${C_ERR}Unable to find shuttle project in directory.$C_RS\n${C_B}Make sure you're inside the root of your project.\n$C_RS"
+fi

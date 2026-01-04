@@ -1,12 +1,12 @@
 main() {
-    printf "\e[34mBuilding $name...\n\n\e[0m"
+    printf "${C_B}Building $name...\n\n$C_RS"
     mapfile -t files < <(find "$dir" -type f)
 
     for f in ${files[@]}; do
 
         # Ignore logic
 	if head -n2 "$f" | grep -q "\.ignore"; then
-	    echo "Skipping ignored file: ${f#$dir}"
+	    printf "\n${C_B}Skipping ignored file: ${f#$dir}"
 	    continue
 	fi
 
@@ -30,9 +30,9 @@ main() {
     # printf '%b\n' "\e[35m${filtered[@]#$dir/}"
     source ./src/build/build.bash
     if [[ $? == "0" ]]; then
-	printf "\n\n\e[35mSuccessfully built ${#filtered[@]} files.\n\e[0m"
+	printf "\n\n${C_P}Successfully built ${#filtered[@]} files.\n$C_RS"
     else
-	printf "\n\n\e[31mAn unknown error occured.\n\e[0m"
+	printf "\n\n${C_ERR}An unknown error occured.\n$C_RS"
     fi
 }
 

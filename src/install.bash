@@ -16,7 +16,7 @@ main() {
 	source ./src/build.bash "."
 	install $outfile
     else
-	printf "\e[31mUnknown file type '$1'.\n\e[0m"
+	printf "${C_ERR}Unknown file type '$1'.$C_RS\n"
 	exit 1
     fi
 }
@@ -27,9 +27,9 @@ install() {
     filename="${filename%.bash}"
     cp "$file" "/usr/local/bin/$filename"
     if [[ $? != 0 ]]; then
-	printf "\e[31mUnable to install file.\n\e[34mTry running as root or changing ownership of '/usr/local/bin'\n\e[0m"
+	printf "${C_ERR}Unable to install file.$C_RS\n${C_B}Try running as root or changing ownership of '/usr/local/bin'\n$C_RS"
     else
-	printf "\e[32mSuccessfully installed $filename.\n\e[0m"
+	printf "${C_P}Successfully installed $filename.\n$C_RS"
     fi
 }
 

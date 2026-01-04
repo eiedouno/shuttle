@@ -3,8 +3,9 @@ main() {
 
     : > "$outfile"
     for f in ${filtered[@]}; do
+	local currentfunc="$f"
 	sleep 0.01
-	printf "\e[34mBuilding $f ..."
+	printf "${C_B}Building $currentfunc ..."
 	func_name="${f#$dir/}"
 	func_name="${func_name%.bash}"
 	func_name="${func_name//[\/.]/_}"
@@ -12,17 +13,17 @@ main() {
 	    {
 		printf "%s() {\n" "$func_name"
 		add "$f"
-		printf "}\n\n\n"
+		printf "}\n"
 	    } >> "$outfile"
 	else
 	    {
 		printf "%s() {\n" "$func_name"
 		clean "$f"
-		printf "}\n\n\n"
+		printf "}\n"
 	    } >> "$outfile"
 	fi
-	printf "\e[1K\e[1G"
-	printf "\e[32mBuilt $f\n\e[0m"
+	printf "\e[2K\e[1G"
+	printf "${C_G}Built $currentfunc\n${C_RS}"
     done
 
     printf "src_main \"\$@\"\n" >> "$outfile"
