@@ -1,10 +1,8 @@
-
 printf "#!/usr/bin/env bash
-# .ignore
 
 
 # THIS FILE IS AUTO GENERATED
-# 
+#
 # This file will not be included when you build your project,
 # so it is not recommended to add code to this.
 #
@@ -14,6 +12,10 @@ printf "#!/usr/bin/env bash
 # './$name'
 #
 # command.
+#
+# The 'shuttle.json' file is optional. It is only needed if you plan
+# to upload this script to the Shuttle Script Library.
+#
 #
 # If you are new to building with Shuttle please read
 # the documentation for more information.

@@ -1,11 +1,12 @@
 main() {
     outfile="$dir/$name.bash"
+    printf "\033[$((${#filtered[@]} - 1))A"
+
 
     : > "$outfile"
     for f in ${filtered[@]}; do
 	local currentfunc="$f"
-	sleep 0.01
-	printf "${C_B}Building $currentfunc ..."
+	printf "\e[2K\e[1G${C_B}Building $currentfunc ..."
 	func_name="${f#$dir/}"
 	func_name="${func_name%.bash}"
 	func_name="${func_name//[\/.]/_}"

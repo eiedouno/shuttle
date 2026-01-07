@@ -1,23 +1,17 @@
 main() {
     if [ -d "$1" ]; then
 
-	if [[ "$1" == "" ]]; then
-	    dir="$PWD"
-	else
-	    dir="$(realpath $1)"
-	fi
-
+	dir="$(realpath $1)"
 	source ./src/build.bash "$dir"
 	install "$outfile"
 
     elif [ -f "$1" ]; then
-	install $1
+	install "$1"
     elif [[ "$1" == "" ]]; then
 	source ./src/build.bash "."
-	install $outfile
+	install "$outfile"
     else
-	printf "${C_ERR}Unknown file type '$1'.$C_RS\n"
-	exit 1
+	source ./src/ssl.bash "$1"
     fi
 }
 

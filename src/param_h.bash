@@ -12,6 +12,11 @@ param_h1() {
 	-u|--update)
 	    source ./src/update.bash
 	    ;;
+
+	-y|--update-library)
+	    source ./src/update_l.bash
+	    ;;
+
 	*)
 	    param_h2 "$@"
 	    ;;

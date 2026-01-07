@@ -7,9 +7,10 @@ Usage: \e[0m
 	shuttle [command]
 \e[34m
 Options: \e[0m
-    -u, --update	Fetch the latest update
-    -v,	--version	Print version, info and exit
-    -h, --help		Print help \e[34m
+    -u, --update		Fetch the latest update
+    -y, --update-library	Update the library.
+    -v,	--version		Print version, info and exit
+    -h, --help			Print help \e[34m
 
 Commands: \e[0m
     build, b		Build the current project
