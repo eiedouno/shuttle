@@ -1,9 +1,10 @@
 main() {
     outfile="$dir/$name.bash"
     printf "\033[$((${#filtered[@]} - 1))A"
-
-
     : > "$outfile"
+    printf "#!/usr/bin/env bash\n" >> "$outfile"
+
+
     for f in ${filtered[@]}; do
 	local currentfunc="$f"
 	printf "\e[2K\e[1G${C_B}Building $currentfunc ..."

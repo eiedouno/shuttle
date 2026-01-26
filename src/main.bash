@@ -34,4 +34,11 @@ ConvertFrom-JSON() {
     done
 }
 
+chk_cmp() {
+    if [[ "$?" == "0" ]]; then
+	printf "\n${C_ERR}An unknown error occured."
+	exit 1
+    fi
+}
+
 main "$@"

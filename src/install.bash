@@ -20,7 +20,7 @@ install() {
     local filename=$(basename "$file")
     filename="${filename%.bash}"
     cp "$file" "/usr/local/bin/$filename"
-    if [[ $? != 0 ]]; then
+    if [[ "$?" != "0" ]]; then
 	printf "${C_ERR}Unable to install file.$C_RS\n${C_B}Try running as root or changing ownership of '/usr/local/bin'\n$C_RS"
     else
 	printf "${C_P}Successfully installed $filename.\n$C_RS"
