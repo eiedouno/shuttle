@@ -21,7 +21,7 @@ deps_chk() {
 
     if [[ "$watch" == "1" ]]; then
 
-	printf "${C_B}Fetching dependencies:\n"
+	pln "${C_B}Fetching dependencies:\n"
 	printf '%b\n' "${err[@]}"
 
 	for f in "${err[@]}"; do
@@ -47,9 +47,9 @@ raw_deps_chk() {
     fi
 
     if [[ "$fail" == "1" ]]; then
-	printf "${C_ERR}The following dependencies were not found on your system:\n"
+	pln "${C_ERR}The following dependencies were not found on your system:\n"
 	printf '%b\n' "${err[@]}"
-	printf "${C_B}Please install them with your package manager.\n$C_RS"
+	pln "${C_B}Please install them with your package manager.\n$C_RS"
 	exit 1
     fi
 }

@@ -13,11 +13,13 @@ if [[ -f "$dir/src/main.bash" ]]; then
     source ./src/build/build.bash
 
     if [[ $? == "0" ]]; then
-	printf "\n\n${C_P}Successfully built $name ($shuttle_id). $C_LHT(${#filtered[@]} files)\n$C_RS"
+	pln "\n\n${C_P}Successfully built $name ($shuttle_id). $C_LHT(${#filtered[@]} files)\n$C_RS"
     else
-	printf "\n\n${C_ERR}An unknown error occured.\n$C_RS"
+	pln "\n\n${C_ERR}An unknown error occured.\n$C_RS"
+	exit 1
     fi
 
 else
-    printf "${C_ERR}Unable to find shuttle project in directory.$C_RS\n${C_B}Make sure you're inside the root of your project.\n$C_RS"
+    pln "${C_ERR}Unable to find shuttle project in directory.$C_RS\n${C_B}Make sure you're inside the root of your project.\n$C_RS"
+    exit 1
 fi

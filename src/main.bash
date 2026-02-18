@@ -4,7 +4,7 @@ main() {
 }
 
 initvars() {
-    shuttle_version="0.1"
+    shuttle_version="0.2"
     ssl="$HOME/.cache/shuttle/ssl.json"
     rows=$(tput lines)
     cols=$(tput cols)
@@ -36,9 +36,19 @@ ConvertFrom-JSON() {
 
 chk_cmp() {
     if [[ "$?" == "0" ]]; then
-	printf "\n${C_ERR}An unknown error occured."
+	pln "\n${C_ERR}An unknown error occured."
 	exit 1
     fi
+}
+
+xx_failed() {
+    pln "\n${C_ERR}An unknown error occured."
+    exit 1
+}
+
+pln() {
+    local safe=${*//%/%%}
+    printf '%b' "$safe"
 }
 
 main "$@"

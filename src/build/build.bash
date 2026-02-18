@@ -1,14 +1,14 @@
 main() {
     outfile="$dir/$name.bash"
-    printf "\033[$((${#filtered[@]} - 1))A"
+    pln "\e[$((${#filtered[@]} - 1))A"
     : > "$outfile"
     printf "#!/usr/bin/env bash\n" >> "$outfile"
 
 
-    for f in ${filtered[@]}; do
+    for f in "${filtered[@]}"; do
 	local currentfunc="$f"
-	printf "\e[2K\e[1G${C_B}Building $currentfunc ..."
-	func_name="${f#$dir/}"
+	pln "\e[2K\e[1G${C_B}Building $currentfunc ..."
+	func_name="${f#"$dir"/}"
 	func_name="${func_name%.bash}"
 	func_name="${func_name//[\/.]/_}"
 	if [[ "$f" == *lib/texts/* ]]; then
@@ -24,29 +24,38 @@ main() {
 		printf "}\n"
 	    } >> "$outfile"
 	fi
-	printf "\e[2K\e[1G"
-	printf "${C_G}Built $currentfunc\n${C_RS}"
+	pln "\e[2K\e[1G"
+	pln "${C_G}Built $currentfunc\n${C_RS}"
     done
 
-    printf "src_main \"\$@\"\n" >> "$outfile"
+    pln "src_main \"\$@\"\n" >> "$outfile"
     chmod +x "$outfile"
 }
 
 clean() {
     while IFS= read -r line || [ -n "$line" ]; do
 
-	local clean_line="${line%%#*}"
+	if [[ "$line" =~ ^[[:space:]]*#.* ]]; then
+	    # comment-only line
+	    clean_line=""
+	else
+	    clean_line="$line"
+	fi
+
+	# Trim leading/trailing whitespace
+	clean_line="${clean_line#"${clean_line%%[![:space:]]*}"}"
+	clean_line="${clean_line%"${clean_line##*[![:space:]]}"}"
 
 	if [ -z "$clean_line" ]; then
 	    continue
 	fi
 
 	if [[ "$clean_line" =~ ^[[:space:]]*source[[:space:]]+.*$ ]]; then
-	    indent="${BASH_REMATCH[1]}"
-	    source_clean $line
+	    read -r -a args <<< "$clean_line"
+	    source_clean "${args[@]:1}"
 	fi
 	    
-	echo "    $line"
+	echo "$clean_line"
 
     done < "$1"
 }
@@ -56,8 +65,8 @@ source_clean() {
     local yozo
     
     for f in "${filtered[@]}"; do
-	yozo="${f#$dir/}"
-	if [[ $@ == *"$yozo"* ]]; then
+	yozo="${f#"$dir"/}"
+	if [[ "$@" == *"$yozo"* ]]; then
 	    yes=true
 	fi
     done
@@ -66,11 +75,11 @@ source_clean() {
 	return
     fi
 
-    local allelse="${@:3}"
-    local source_fn="${2#*./}"
+    local allelse="${@:2}"
+    local source_fn="${1#*./}"
     local source_fn="${source_fn%.bash*}"
     local source_fn="${source_fn//[\/.]/_}"
-    line="    ${indent}$source_fn $allelse"
+    clean_line="$source_fn $allelse"
 }
 
 add() {

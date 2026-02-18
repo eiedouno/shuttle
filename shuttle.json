@@ -2,6 +2,9 @@
     "id": "shuttle",
     "version": "0.1",
     "raw_deps": [
-	"jq"
+	"jq",
+	"curl",
+	"git",
+	"xdg-open"
     ]
 }
