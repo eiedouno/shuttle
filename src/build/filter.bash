@@ -34,7 +34,7 @@ main() {
     done
     # pln '%b\n' "\e[35m${filtered[@]#$dir/}"
     if [[ "$stovrw" == 1 ]]; then 
-	pln "\n${C_ERR}'${f#"$st"/}' will be overwritten, continue? (y/n): "
+	pln "\n${C_ERR}'${st#"$dir"/}' will be overwritten, continue? (y/n): "
 	read -rn1 ans
 	if [[ "$ans" == "y" ]]; then	
 	    pln "\e[2K\e[1G\e[1A\e[0m"

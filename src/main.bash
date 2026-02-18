@@ -4,7 +4,7 @@ main() {
 }
 
 initvars() {
-    shuttle_version="0.2"
+    shuttle_version="0.2.1"
     ssl="$HOME/.cache/shuttle/ssl.json"
     rows=$(tput lines)
     cols=$(tput cols)
