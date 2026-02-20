@@ -1,20 +1,13 @@
 main() {
     pln "${C_B}Building $name...\n\n$C_RS"
-    mapfile -t files < <(find "$dir" -type f)
+    mapfile -t files < <(
+	find "$dir" -type d -name .git -prune -o \
+	    -type f -name '*.bash' -print
+    )
 
     for f in "${files[@]}"; do
 
-        # Ignore logic
-	local ext="${f##*/}"
-	local ext="${ext#*.}"
-
-	if [[ "$ext" != "bash" ]]; then
-	    continue
-	fi
-
-	if [[ "$f" == $dir/.git* ]]; then
-	    continue
-	fi
+	### Ignore Logic
 
 	# Ignore it's own build
 	if [[ "$f" == "$dir/$name.bash" ]]; then
@@ -32,7 +25,6 @@ main() {
 	filtered+=("$f")	
 
     done
-    # pln '%b\n' "\e[35m${filtered[@]#$dir/}"
     if [[ "$stovrw" == 1 ]]; then 
 	pln "\n${C_ERR}'${st#"$dir"/}' will be overwritten, continue? (y/n): "
 	read -rn1 ans

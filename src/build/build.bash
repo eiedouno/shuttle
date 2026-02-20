@@ -36,7 +36,7 @@ clean() {
     while IFS= read -r line || [ -n "$line" ]; do
 
 	if [[ "$line" =~ ^[[:space:]]*#.* ]]; then
-	    # comment-only line
+	    # no comment-only lines
 	    clean_line=""
 	else
 	    clean_line="$line"
