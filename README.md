@@ -17,7 +17,7 @@ Documentation about building with shuttle can be found in the [wiki](https://git
 ### Requirements
 
 * A working linux system<br>
-(If you have a usable linux system, you have zsh or bash.)
+(If you have a usable linux system, you have bash.)
 
 ### Building
 

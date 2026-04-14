@@ -1,6 +1,7 @@
 main() {
-    if [[ $# == 0 ]]; then
-	pln "${C_ERR}No Directory Specified.$C_RS\n${C_B}Try 'shuttle help new'\n$C_RS"
+    if [[ -z "$1" ]]; then
+	pln "${C_ERR}No directory specified.$C_RS\n${C_B}Try 'shuttle help new'\n$C_RS"
+	exit 1
     fi
 
     dir="$(realpath "$1")"
