@@ -28,7 +28,7 @@ main() {
 	pln "${C_G}Built $currentfunc\n${C_RS}"
     done
 
-    pln "src_main \"\$@\"\n" >> "$outfile"
+    printf "src_main \"\$@\"\n" >> "$outfile"
     chmod +x "$outfile"
 }
 
