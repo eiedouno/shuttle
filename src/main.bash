@@ -35,7 +35,7 @@ ConvertFrom-JSON() {
 }
 
 chk_cmp() {
-    if [[ "$?" == "0" ]]; then
+    if [[ "$?" == "1" ]]; then
 	pln "\n${C_ERR}An unknown error occured."
 	exit 1
     fi
@@ -48,7 +48,7 @@ xx_failed() {
 
 pln() {
     local safe=${*//%/%%}
-    printf '%b' "$safe"
+    printf '%b\e[0m' "$safe"
 }
 
 main "$@"
