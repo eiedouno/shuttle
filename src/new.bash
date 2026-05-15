@@ -1,13 +1,13 @@
 main() {
     if [[ -z "$1" ]]; then
-	pln "${C_ERR}No directory specified.$C_RS\n${C_B}Try 'shuttle help new'\n$C_RS"
+	epln "No directory specified." "Try 'shuttle help new'"
 	exit 1
     fi
 
     dir="$(realpath "$1")"
     name="$(basename "$dir")"
 
-    create_layout
+    create_layout || xx_failed
     template
     pln "${C_B}Created new project: $name\n$C_RS"
 }

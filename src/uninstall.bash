@@ -6,12 +6,12 @@ main() {
 	    bruh
 	fi
     else
-	bruh
+	epln "File /usr/local/bin/$1 is already uninstalled."
     fi
 }
 
 bruh() { 
-    pln "${C_ERR}Unable to uninstall.${C_RS}\n${C_B}Try running as root or changing the ownership of '/usr/local/bin'.\nOr the file might already be uninstalled.\n$C_RS"
+    epln "Unable to uninstall." "Try running as root or changing the ownership of '/usr/local/bin'."
     exit 1
 }
 

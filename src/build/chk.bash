@@ -7,19 +7,19 @@ main() {
 deps_chk() {
     local file="$1"
     local key="deps"
-    local watch
+    local fail
     local err
 
     if jq -e ".${key}" "$file" >/dev/null 2>&1; then
 	while read -r entry; do
 	    if ! command -v "$entry" >/dev/null; then
-		watch=1
+		fail=1
 		err+=("$entry")
 	    fi
 	done < <(jq -r ".${key}[]" "$file")
     fi
 
-    if [[ "$watch" == "1" ]]; then
+    if [[ "$fail" == "1" ]]; then
 
 	pln "${C_B}Fetching dependencies:\n"
 	printf '%b\n' "${err[@]}"

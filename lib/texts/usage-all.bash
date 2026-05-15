@@ -1,13 +1,11 @@
-printf '%b' "\e[32meiedouno Shuttle, version $shuttle_version
-------------------------------------
-The script file package manager.
-\e[34m\e[1m\e[4m
+printf '%b' "\e[34m\e[1m\e[4m
 Usage:\e[0m
 	shuttle [option]
 	shuttle [command]
 	shuttle -y [command]
 \e[34m\e[1m\e[4m
 Options:\e[0m
+    --clear-cache		Reset cache of shuttle
     -h, --help			Print help
     -u, --update		Fetch the latest update
     -y, --update-library	Update the library
@@ -23,5 +21,4 @@ Commands:\e[0m
     uninstall		Uninstall the project
 \e[35m
 See 'shuttle help <command>' for more information on a specific command.
-See 'shuttle help all' for all commands.
 \e[0m"

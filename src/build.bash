@@ -12,19 +12,23 @@ main() {
 	if [[ -f "$dir/shuttle.json" ]]; then
 	    source ./src/build/chk.bash
 	fi
-	source ./src/build/filter.bash
-	source ./src/build/build.bash
 
-	if [[ $? == "0" ]]; then
-	    pln "\n\n${C_P}Successfully built $name ($shuttle_id). $C_LHT(${#filtered[@]} files)\n$C_RS"
-	    else
-		pln "\n\n${C_ERR}An unknown error occured.\n$C_RS"
-		exit 1
+	source ./src/build/filter.bash
+	source ./src/build/build.bash || xx_failed
+	
+	if [[ $PORTABLE == "true" ]]; then
+	    deps=$(jq -r ".raw_deps[]" "$dir/shuttle.json")
+	    source ./lib/texts/port.bash >> "$outfile"
+	    printf "chk_deps\n" >> "$outfile"
 	fi
+
+	printf "src_main \"\$@\"\n" >> "$outfile"
+	chmod +x "$outfile"
+	plnq "\n\n${C_P}Successfully built $name ($shuttle_id). $C_LHT(${#filtered[@]} files)\n$C_RS"
 
     else
 	if [[ "$dir" == "/" ]]; then
-	    pln "${C_ERR}Unable to find shuttle project in directory.$C_RS\n${C_B}Make sure you're inside the root of your project.\n$C_RS"
+	    epln "Unable to find shuttle project in directory." "Make sure you're inside the root of your project."
 	    exit 1
 	fi
 	cd .. || xx_failed

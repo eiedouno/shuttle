@@ -4,7 +4,7 @@ main() {
 }
 
 initvars() {
-    shuttle_version="0.2.2"
+    shuttle_version="0.3"
     ssl="$HOME/.cache/shuttle/ssl.json"
     rows=$(tput lines)
     cols=$(tput cols)
@@ -34,21 +34,26 @@ ConvertFrom-JSON() {
     done
 }
 
-chk_cmp() {
-    if [[ "$?" == "1" ]]; then
-	pln "\n${C_ERR}An unknown error occured."
-	exit 1
-    fi
-}
-
 xx_failed() {
-    pln "\n${C_ERR}An unknown error occured."
+    epln "An unknown error occured."
     exit 1
 }
 
 pln() {
     local safe=${*//%/%%}
     printf '%b\e[0m' "$safe"
+}
+
+plnq() {
+    if [[ $QUIET != "true" ]]; then
+	pln "$@"
+    fi
+}
+
+epln() {
+    local safe1=${1//%/%%}
+    local safe2=${2//%/%%}
+    printf "\n\e[31m\e[1m%b\e[0m\n\e[34m%b\n\e[0m" "$safe1" "$safe2"
 }
 
 main "$@"

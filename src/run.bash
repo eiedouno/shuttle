@@ -16,7 +16,7 @@ main() {
 	source ./src/build.bash "."
 	$outfile "${@:3}"
     else
-	pln "${C_ERR}Unknown file or directory '$2'.\n$C_RS"
+	epln "Unknown file or directory '$2'."
 	exit 1
     fi
 }

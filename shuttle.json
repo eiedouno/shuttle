@@ -1,6 +1,6 @@
 {
     "id": "shuttle",
-    "version": "0.1",
+    "version": "0.3",
     "raw_deps": [
 	"jq",
 	"curl",

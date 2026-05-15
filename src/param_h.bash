@@ -1,3 +1,68 @@
+paramc_build() {
+    param_h() {
+	for f in $@; do
+	    if [[ "$f" == --* ]]; then
+		con="${f#--}"
+		param_h2
+	    elif [[ "$f" == -* ]]; then
+		con="${f#-}"
+		param_h1
+	    else
+		g1="$f"
+	    fi
+
+	done
+    }
+
+    param_h1() {
+	while IFS= read -r -n1 char; do
+	    [[ -z "$char" ]] && continue
+
+	    case $char in
+		p)
+		    PORTABLE=true
+		    ;;
+		q)
+		    QUIET=true
+		    ;;
+		m)
+		    MINIMAL=true
+		    ;;
+		f)
+		    FORCE=true
+		    ;;
+		*)
+		    epln "Unknown option '-$char'" "Try 'shuttle help <command>'" && exit 1
+		    ;;
+	    esac
+	done <<< "$con"
+    }
+
+    param_h2() {
+	case $con in
+	    portable)
+		PORTABLE=true
+		;;
+	    quiet)
+		QUIET=true
+		;;
+	    minimal)
+		MINIMAL=true
+		;;
+	    small)
+		SMALL=true
+		;;
+	    force)
+		FORCE=true
+		;;
+	    *)
+		epln "Unknown option '--$con'" "Try 'shuttle help <command>'" && exit 1
+		;;
+	esac
+    }
+    param_h "$@"
+}
+
 param_h1() {
     case "$1" in
 
@@ -15,6 +80,11 @@ param_h1() {
 
 	-y|--update-library)
 	    source ./src/update_l.bash
+	    (( $# >= "2" )) && param_h2 "${@:2}"
+	    ;;
+
+	--clear-cache)
+	    source ./src/reset.bash
 	    ;;
 
 	*)
@@ -31,7 +101,8 @@ param_h2() {
 	    ;;
 
 	b|build)
-	    source ./src/build.bash "$2"
+	    paramc_build "${2:+"${@:2}"}"
+	    source ./src/build.bash "$g1"
 	    ;;
 
 	docs)
@@ -51,7 +122,8 @@ param_h2() {
 	    ;;
 
 	install)
-	    source ./src/install.bash "$2"
+	    paramc_build "${2:+"${@:2}"}"
+	    source ./src/install.bash "$g1"
 	    ;;
 
 	uninstall)
@@ -59,13 +131,13 @@ param_h2() {
 	    ;;
 
 	*)
-	    pln "${C_ERR}Command not known '$1'.$C_RS\n${C_B}Try 'shuttle -h'\n$C_RS"
+	    epln "Command not known '$1'." "Try 'shuttle -h'"
 	    exit 1
     esac
 }
 
 if [[ "$#" == "0" ]]; then
-    pln "${C_ERR}Command not specified.$C_RS\n${C_B}Try 'shuttle -h'.\n$C_RS"
+    epln "Command not specified." "Try 'shuttle -h'."
     exit 1
 fi
 

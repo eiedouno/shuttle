@@ -7,7 +7,7 @@ main() {
     case $2 in
 
 	build)
-	    pln "${C_B}Usage: shuttle build [directory]\n$C_RS"
+	    source ./lib/texts/help/build.bash
 	    ;;
 
 	docs)
@@ -26,12 +26,24 @@ main() {
 	    pln "${C_B}Usage: shuttle run [directory]\n$C_RS"
 	    ;;
 
+	install)
+	    source ./lib/texts/help/install.bash
+	    ;;
+
+	uninstall)
+	    pln "${C_B}Usage: shuttle uninstall [file]\n"
+	    ;;
+
 	help*)
 	    pln "${C_G}Read the docs bro DX\n$C_RS"
 	    ;;
 
+	all)
+	    source ./lib/texts/usage-all.bash
+	    ;;
+
 	*)
-	    pln "${C_ERR}Command not found '$2'.${C_RS}\n${C_B}Try 'shuttle -h'.\n$C_RS"
+	    epln "Command not found '$2'." "Try 'shuttle -h'."
 	    ;;
     esac
 }

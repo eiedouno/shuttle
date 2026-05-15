@@ -7,15 +7,9 @@ printf "#!/usr/bin/env bash
 # so it is not recommended to add code to this.
 #
 # This file is for calling your script correctly. You must
-# call your script from HERE ($dir) with this
+# call your script from HERE ($dir) with this command:
 #
 # './$name'
-#
-# command.
-#
-# The 'shuttle.json' file is optional. It is only needed if you plan
-# to upload this script to the Shuttle Script Library.
-#
 #
 # If you are new to building with Shuttle please read
 # the documentation for more information.

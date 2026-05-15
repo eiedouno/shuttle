@@ -19,12 +19,11 @@ install() {
     local file="$1"
     local filename=$(basename "$file")
     filename="${filename%.bash}"
-    cp "$file" "/usr/local/bin/$filename"
-    if [[ "$?" != "0" ]]; then
-	pln "${C_ERR}Unable to install file.$C_RS\n${C_B}Try running as root or changing ownership of '/usr/local/bin'\n$C_RS"
-    else
-	pln "${C_P}Successfully installed $filename.\n$C_RS"
-    fi
+    cp "$file" "/usr/local/bin/$filename" || {
+	epln "Unable to install file." "Try running as root or changing ownership of '/usr/local/bin'"
+	exit 1
+    }
+    plnq "${C_P}Successfully installed $filename.\n$C_RS"
 }
 
 main "$@"
