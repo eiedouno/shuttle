@@ -35,7 +35,7 @@ ConvertFrom-JSON() {
 }
 
 xx_failed() {
-    epln "An unknown error occured."
+    epln "An unknown error occurred."
     exit 1
 }
 
