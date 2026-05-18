@@ -4,7 +4,7 @@ main() {
 	if [[ "$2" == "" ]]; then
 	    dir="$PWD"
 	else
-	    dir="$(realpath "$1")"
+	    dir="$(realpath "$2")"
 	fi
 
 	source ./src/build.bash "$dir"

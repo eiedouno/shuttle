@@ -1,10 +1,14 @@
 {
-    "id": "shuttle",
-    "version": "0.3",
-    "raw_deps": [
-	"jq",
-	"curl",
-	"git",
-	"xdg-open"
-    ]
+  "id": "shuttle",
+  "version": "0.3.1",
+  "type": "script",
+  "raw_deps": [
+    "jq",
+    "curl",
+    "git",
+    "xdg-open"
+  ],
+  "deps": [
+    "param"
+  ]
 }

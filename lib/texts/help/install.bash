@@ -12,4 +12,7 @@ Options:\e[0m
 Arguments:\e[0m
     [directory]  The directory of the shuttle script to build and install. Leave blank for current directory.
     [project]  The id of the project to download, build and install from the Shuttle Script Library.
+
+SSL scripts are always checked and installed with least priority. Make sure there are no files with the same name as your desired SSL script in the current directory before attempting to install.
+Use 'shuttle ssl install' instead for direct ssl interation.
 \e[0m"

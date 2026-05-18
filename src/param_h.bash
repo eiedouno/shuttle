@@ -1,99 +1,92 @@
-paramc_build() {
-    param_h() {
-	for f in $@; do
-	    if [[ "$f" == --* ]]; then
-		con="${f#--}"
-		param_h2
-	    elif [[ "$f" == -* ]]; then
-		con="${f#-}"
-		param_h1
-	    else
-		g1="$f"
-	    fi
+f1() {
+    [[ -z "$@" ]] && epln "Command not specified." "Try 'shuttle -h'." && exit 1
 
-	done
-    }
+    declare -A help=(
+	[type]="bool"
+	[alias]="h"
+    )
 
-    param_h1() {
-	while IFS= read -r -n1 char; do
-	    [[ -z "$char" ]] && continue
+    declare -A version=(
+	[type]="bool"
+	[alias]="v"
+    )
 
-	    case $char in
-		p)
-		    PORTABLE=true
-		    ;;
-		q)
-		    QUIET=true
-		    ;;
-		m)
-		    MINIMAL=true
-		    ;;
-		f)
-		    FORCE=true
-		    ;;
-		*)
-		    epln "Unknown option '-$char'" "Try 'shuttle help <command>'" && exit 1
-		    ;;
-	    esac
-	done <<< "$con"
-    }
+    declare -A update=(
+	[type]="bool"
+	[alias]="u"
+    )
 
-    param_h2() {
-	case $con in
-	    portable)
-		PORTABLE=true
-		;;
-	    quiet)
-		QUIET=true
-		;;
-	    minimal)
-		MINIMAL=true
-		;;
-	    small)
-		SMALL=true
-		;;
-	    force)
-		FORCE=true
-		;;
-	    *)
-		epln "Unknown option '--$con'" "Try 'shuttle help <command>'" && exit 1
-		;;
-	esac
-    }
-    param_h "$@"
+    declare -A ud_lib=(
+	[name]="update-library"
+	[type]="bool"
+	[alias]="y"
+    )
+
+    declare -A clearcache=(
+	[name]="clear-cache"
+	[type]="bool"
+    )
+
+    declare -A force=(
+	[type]="bool"
+	[alias]="f"
+    )
+
+    declare -A quiet=(
+	[type]="bool"
+	[alias]="q"
+    )
+
+    args=(help version update ud_lib clearcache force quiet)
+    PARAM_AUTO_EXIT="false"
+    PARAM_ERROR_MSG="false"
+
+    declare -a pargs=("$@")
+    source ./lib/param/handle.bash "$@"
+
+
+
+    if [[ "${help[value]}" == "true" ]]; then
+	source ./lib/texts/usage.bash
+	exit
+    fi
+
+
+    if [[ "${version[value]}" == "true" ]]; then
+	source ./lib/texts/version.bash
+	exit
+    fi
+    
+
+    if [[ "${update[value]}" == "true" ]]; then
+	source ./src/update.bash
+	exit
+    fi
+
+
+    if [[ "${ud_lib[value]}" == "true" ]]; then
+	source ./src/update_l.bash
+	exit
+    fi
+
+
+    if [[ "${clearcache[value]}" == "true" ]]; then
+	source ./src/reset.bash
+	exit
+    fi
+
+
+    [[ "${force[value]}" == "true" ]] && FORCE="true"
+    [[ "${quiet[value]}" == "true" ]] && QUIET="true"
+
+
+    [[ -z "${param_extra[*]}" ]] && epln "Command not specified." "Try 'shuttle -h'." && exit 1
+    f2 "${param_extra[@]}"
 }
 
-param_h1() {
-    case "$1" in
 
-	-h|--help)
-	    source ./lib/texts/usage.bash
-	    ;;
 
-	-v|--version)
-	    source ./lib/texts/version.bash
-	    ;;
-
-	-u|--update)
-	    source ./src/update.bash
-	    ;;
-
-	-y|--update-library)
-	    source ./src/update_l.bash
-	    (( $# >= "2" )) && param_h2 "${@:2}"
-	    ;;
-
-	--clear-cache)
-	    source ./src/reset.bash
-	    ;;
-
-	*)
-	    param_h2 "$@"
-	    ;;
-    esac
-}
-
-param_h2() {
+f2() {
     case "$1" in
 
 	help)
@@ -101,8 +94,12 @@ param_h2() {
 	    ;;
 
 	b|build)
-	    paramc_build "${2:+"${@:2}"}"
-	    source ./src/build.bash "$g1"
+	    fc_build "${2:+"${@:2}"}"
+	    source ./src/build.bash "${g1}"
+	    ;;
+
+	add)
+	    source ./src/add.bash "${2:+"${@:2}"}"
 	    ;;
 
 	docs)
@@ -122,12 +119,16 @@ param_h2() {
 	    ;;
 
 	install)
-	    paramc_build "${2:+"${@:2}"}"
-	    source ./src/install.bash "$g1"
+	    fc_build "${2:+"${@:2}"}"
+	    source ./src/install.bash "${g1[value]}"
 	    ;;
 
 	uninstall)
 	    source ./src/uninstall.bash "$2"
+	    ;;
+
+	ssl)
+	    source ./src/ssl.bash "${2:+"${@:2}"}"
 	    ;;
 
 	*)
@@ -136,9 +137,32 @@ param_h2() {
     esac
 }
 
-if [[ "$#" == "0" ]]; then
-    epln "Command not specified." "Try 'shuttle -h'."
-    exit 1
-fi
 
-param_h1 "$@"
+
+fc_build() {
+    declare -A minimal=(
+	[type]="bool"
+	[alias]="m"
+    )
+
+    declare -A portable=(
+	[type]="bool"
+	[alias]="p"
+    )
+
+    declare -A small=(
+	[type]="bool"
+    )
+
+    args=(minimal portable small)
+    PARAM_ERROR_MSG="true"
+    source ./lib/param/handle.bash "$@"
+    g1=("${param_extra[@]}")
+
+    [[ "${minimal[value]}" == "true" ]] && MINIMAL="true"
+    [[ "${portable[value]}" == "true" ]] && PORTABLE="true"
+}
+
+
+
+f1 "$@"

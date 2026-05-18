@@ -7,6 +7,17 @@ main() {
     dir="$(realpath "$1")"
     name="$(basename "$dir")"
 
+    if [[ -d "$dir" ]]; then
+	printf "${C_ERR}Directory '$dir' already exists, override? (y/n)"
+	read -rn1 ans
+	if [[ "$ans" == "y" ]]; then	
+	    plnq "\e[2K\e[1G\e[0m"
+	else
+	    epln "Denied. Stopping..."
+	    exit 1
+	fi
+    fi
+
     create_layout || xx_failed
     template
     pln "${C_B}Created new project: $name\n$C_RS"

@@ -6,6 +6,10 @@ main() {
 
     case $2 in
 
+	add)
+	    pln "${C_B}Usage: shuttle add <project>\n"
+	    ;;
+
 	build)
 	    source ./lib/texts/help/build.bash
 	    ;;
@@ -32,6 +36,10 @@ main() {
 
 	uninstall)
 	    pln "${C_B}Usage: shuttle uninstall [file]\n"
+	    ;;
+
+	ssl*)
+	    source ./lib/texts/help/ssl.bash
 	    ;;
 
 	help*)

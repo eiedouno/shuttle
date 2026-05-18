@@ -11,7 +11,7 @@ main() {
 	source ./src/build.bash "."
 	install "$outfile"
     else
-	source ./src/ssl.bash "$1"
+	source ./src/ssl_install.bash "$1"
     fi
 }
 

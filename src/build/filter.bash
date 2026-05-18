@@ -1,4 +1,3 @@
-plnq "${C_B}Building $name...\n\n$C_RS"
 mapfile -t files < <(
     find "$dir" -type d -name .git -prune -o \
     -type f -name '*.bash' -print

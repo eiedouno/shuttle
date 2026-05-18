@@ -10,7 +10,7 @@ main() {
 
     nsv=$(jq -r .version "$HOME/.cache/shuttle/shuttle/shuttle.json")
     if [[ "$nsv" == "$shuttle_version" ]]; then
-	pln "\e[34mAlready up to date!\n"
+	pln "${C_B}Already up to date!\nTo override, use 'shuttle ssl install shuttle'\n"
 	exit
     fi
 
