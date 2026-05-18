@@ -6,9 +6,7 @@ Usage:\e[0m
 \e[34m\e[1m\e[4m
 Options:\e[0m
     --clear-cache		Clear shuttle's cache
-    -f, --force			Do not ask for confirmation
     -h, --help			Print help
-    -q, --quiet			Be less verbose
     -u, --update		Fetch the latest update
     -y, --update-library	Update the library
     -v,	--version		Print version, info and exit

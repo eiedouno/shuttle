@@ -1,92 +1,99 @@
-f1() {
-    [[ -z "$@" ]] && epln "Command not specified." "Try 'shuttle -h'." && exit 1
+paramc_build() {
+    param_h() {
+	for f in $@; do
+	    if [[ "$f" == --* ]]; then
+		con="${f#--}"
+		param_h2
+	    elif [[ "$f" == -* ]]; then
+		con="${f#-}"
+		param_h1
+	    else
+		g1="$f"
+	    fi
 
-    declare -A help=(
-	[type]="bool"
-	[alias]="h"
-    )
+	done
+    }
 
-    declare -A version=(
-	[type]="bool"
-	[alias]="v"
-    )
+    param_h1() {
+	while IFS= read -r -n1 char; do
+	    [[ -z "$char" ]] && continue
 
-    declare -A update=(
-	[type]="bool"
-	[alias]="u"
-    )
+	    case $char in
+		p)
+		    PORTABLE=true
+		    ;;
+		q)
+		    QUIET=true
+		    ;;
+		m)
+		    MINIMAL=true
+		    ;;
+		f)
+		    FORCE=true
+		    ;;
+		*)
+		    epln "Unknown option '-$char'" "Try 'shuttle help <command>'" && exit 1
+		    ;;
+	    esac
+	done <<< "$con"
+    }
 
-    declare -A ud_lib=(
-	[name]="update-library"
-	[type]="bool"
-	[alias]="y"
-    )
-
-    declare -A clearcache=(
-	[name]="clear-cache"
-	[type]="bool"
-    )
-
-    declare -A force=(
-	[type]="bool"
-	[alias]="f"
-    )
-
-    declare -A quiet=(
-	[type]="bool"
-	[alias]="q"
-    )
-
-    args=(help version update ud_lib clearcache force quiet)
-    PARAM_AUTO_EXIT="false"
-    PARAM_ERROR_MSG="false"
-
-    declare -a pargs=("$@")
-    source ./lib/param/handle.bash "$@"
-
-
-
-    if [[ "${help[value]}" == "true" ]]; then
-	source ./lib/texts/usage.bash
-	exit
-    fi
-
-
-    if [[ "${version[value]}" == "true" ]]; then
-	source ./lib/texts/version.bash
-	exit
-    fi
-    
-
-    if [[ "${update[value]}" == "true" ]]; then
-	source ./src/update.bash
-	exit
-    fi
-
-
-    if [[ "${ud_lib[value]}" == "true" ]]; then
-	source ./src/update_l.bash
-	exit
-    fi
-
-
-    if [[ "${clearcache[value]}" == "true" ]]; then
-	source ./src/reset.bash
-	exit
-    fi
-
-
-    [[ "${force[value]}" == "true" ]] && FORCE="true"
-    [[ "${quiet[value]}" == "true" ]] && QUIET="true"
-
-
-    [[ -z "${param_extra[*]}" ]] && epln "Command not specified." "Try 'shuttle -h'." && exit 1
-    f2 "${param_extra[@]}"
+    param_h2() {
+	case $con in
+	    portable)
+		PORTABLE=true
+		;;
+	    quiet)
+		QUIET=true
+		;;
+	    minimal)
+		MINIMAL=true
+		;;
+	    small)
+		SMALL=true
+		;;
+	    force)
+		FORCE=true
+		;;
+	    *)
+		epln "Unknown option '--$con'" "Try 'shuttle help <command>'" && exit 1
+		;;
+	esac
+    }
+    param_h "$@"
 }
 
+param_h1() {
+    case "$1" in
 
+	-h|--help)
+	    source ./lib/texts/usage.bash
+	    ;;
 
-f2() {
+	-v|--version)
+	    source ./lib/texts/version.bash
+	    ;;
+
+	-u|--update)
+	    source ./src/update.bash
+	    ;;
+
+	-y|--update-library)
+	    source ./src/update_l.bash
+	    (( $# >= "2" )) && param_h2 "${@:2}"
+	    ;;
+
+	--clear-cache)
+	    source ./src/reset.bash
+	    ;;
+
+	*)
+	    param_h2 "$@"
+	    ;;
+    esac
+}
+
+param_h2() {
     case "$1" in
 
 	help)
@@ -94,12 +101,8 @@ f2() {
 	    ;;
 
 	b|build)
-	    fc_build "${2:+"${@:2}"}"
-	    source ./src/build.bash "${g1}"
-	    ;;
-
-	add)
-	    source ./src/add.bash "${2:+"${@:2}"}"
+	    paramc_build "${2:+"${@:2}"}"
+	    source ./src/build.bash "$g1"
 	    ;;
 
 	docs)
@@ -119,8 +122,8 @@ f2() {
 	    ;;
 
 	install)
-	    fc_build "${2:+"${@:2}"}"
-	    source ./src/install.bash "${g1[value]}"
+	    paramc_build "${2:+"${@:2}"}"
+	    source ./src/install.bash "$g1"
 	    ;;
 
 	uninstall)
@@ -137,32 +140,9 @@ f2() {
     esac
 }
 
+if [[ "$#" == "0" ]]; then
+    epln "Command not specified." "Try 'shuttle -h'."
+    exit 1
+fi
 
-
-fc_build() {
-    declare -A minimal=(
-	[type]="bool"
-	[alias]="m"
-    )
-
-    declare -A portable=(
-	[type]="bool"
-	[alias]="p"
-    )
-
-    declare -A small=(
-	[type]="bool"
-    )
-
-    args=(minimal portable small)
-    PARAM_ERROR_MSG="true"
-    source ./lib/param/handle.bash "$@"
-    g1=("${param_extra[@]}")
-
-    [[ "${minimal[value]}" == "true" ]] && MINIMAL="true"
-    [[ "${portable[value]}" == "true" ]] && PORTABLE="true"
-}
-
-
-
-f1 "$@"
+param_h1 "$@"

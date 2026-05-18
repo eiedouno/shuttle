@@ -7,8 +7,5 @@
     "curl",
     "git",
     "xdg-open"
-  ],
-  "deps": [
-    "param"
   ]
 }

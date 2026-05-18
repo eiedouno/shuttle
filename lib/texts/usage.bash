@@ -8,9 +8,7 @@ Usage:\e[0m
 	shuttle -y [command]
 \e[34m\e[1m\e[4m
 Options:\e[0m
-    -f, --force			Do not ask for confirmation
     -h, --help			Print help
-    -q, --quiet			Be less verbose
     -u, --update		Fetch the latest update
     -y, --update-library	Update the library
     -v,	--version		Print version, info and exit
