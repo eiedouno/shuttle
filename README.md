@@ -6,36 +6,29 @@ A simple way to create and manage complex scripts. Inspired by Cargo.
 
 ## Installation
 
-You can [build from source](https://github.com/eiedouno/shuttle#building-from-source).
+You can **[build from source →](https://github.com/eiedouno/shuttle/wiki/Install)**
 
 ## Documentation
 
-Documentation about building with shuttle can be found in the [wiki](https://github.com/eiedouno/shuttle/wiki).
+Documentation about building with shuttle can be found in the [wiki →](https://github.com/eiedouno/shuttle/wiki)
 
-## Building from source
+## Features :D
 
-### Requirements
+Shuttle is an easy-to-use bash script bundler. If you like sourcing files to organize your script, shuttle is for you. When your finished building, you can build your script into a single, simple, "just works" file.
 
-* A working linux system<br>
-(If you have a usable linux system, you have bash.)
+Shuttle was made to be user friendly, with large documentation and thorough help commands.
 
-### Building
+* ✅️ User friendly
+* ✅️ Easy to understand errors
+* ✅️ Easy to understand help commands
+* ✅️ Large documentation
+* ✅️ Created in bash, for bash
+* ✅️ Colorized output :D
+* ✅️ Fully open-source
+* ✅️ Cross-distro
+* ✅️ Easy uninstall
+* ✅️ Easter eggs!
 
-First you need the source code.
+---
 
-```
-git clone https://github.com/eiedouno/shuttle
-cd shuttle
-```
-
-With shuttle, just run:
-
-```
-shuttle install
-```
-
-If you don't have shuttle installed, you can run the shuttle you just downloaded.
-
-```
-./shuttle install
-```
+**[Installation →](https://github.com/eiedouno/shuttle/wiki/Install)**
