@@ -40,3 +40,5 @@ main() {
         fi
     fi
 }
+
+main
