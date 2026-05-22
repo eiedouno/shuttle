@@ -1,58 +1,58 @@
 main() {
     if [[ -z "$2" ]]; then
-	source ./lib/texts/usage.bash
-	exit 0
+        source ./lib/texts/usage.bash
+        exit 0
     fi
 
     case $2 in
 
-	add)
-	    pln "${C_B}Usage: shuttle add <project>\n"
-	    ;;
+    add)
+        pln "${C_B}Usage: shuttle add <project>\n"
+        ;;
 
-	build)
-	    source ./lib/texts/help/build.bash
-	    ;;
+    build)
+        source ./lib/texts/help/build.bash
+        ;;
 
-	docs)
-	    source ./src/docs.bash
-	    ;;
+    docs)
+        source ./src/docs.bash
+        ;;
 
-	new)
-	    pln "${C_B}Usage: shuttle new <directory>\n$C_RS"
-	    ;;
+    new)
+        pln "${C_B}Usage: shuttle new <directory>\n$C_RS"
+        ;;
 
-	init)
-	    pln "${C_B}Usage: shuttle init\n$C_RS"
-	    ;;
+    init)
+        pln "${C_B}Usage: shuttle init\n$C_RS"
+        ;;
 
-	run)
-	    pln "${C_B}Usage: shuttle run [directory]\n$C_RS"
-	    ;;
+    run)
+        pln "${C_B}Usage: shuttle run [directory]\n$C_RS"
+        ;;
 
-	install)
-	    source ./lib/texts/help/install.bash
-	    ;;
+    install)
+        source ./lib/texts/help/install.bash
+        ;;
 
-	uninstall)
-	    pln "${C_B}Usage: shuttle uninstall [file]\n"
-	    ;;
+    uninstall)
+        pln "${C_B}Usage: shuttle uninstall [file]\n"
+        ;;
 
-	ssl*)
-	    source ./lib/texts/help/ssl.bash
-	    ;;
+    ssl*)
+        source ./lib/texts/help/ssl.bash
+        ;;
 
-	help*)
-	    pln "${C_G}Read the docs bro DX\n$C_RS"
-	    ;;
+    help*)
+        pln "${C_G}Read the docs bro DX\n$C_RS"
+        ;;
 
-	all)
-	    source ./lib/texts/usage-all.bash
-	    ;;
+    all)
+        source ./lib/texts/usage-all.bash
+        ;;
 
-	*)
-	    epln "Command not found '$2'." "Try 'shuttle -h'."
-	    ;;
+    *)
+        epln "Command not found '$2'." "Try 'shuttle -h'."
+        ;;
     esac
 }
 

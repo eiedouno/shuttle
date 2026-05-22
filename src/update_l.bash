@@ -1,6 +1,5 @@
 mkdir -p "$HOME/.cache/shuttle/"
-curl -fsSL https://raw.githubusercontent.com/eiedouno/shuttlescript/main/library/ssl.json > $ssl
-if [[ "$?" != "0" ]]; then
+if ! curl -fsSL https://raw.githubusercontent.com/eiedouno/shuttlescript/main/library/ssl.json >"$ssl"; then
     epln "Failed to update the Shuttle Script Library." "Internet?\nIs it slow?"
     exit 1
 fi

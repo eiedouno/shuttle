@@ -8,7 +8,7 @@ main() {
 }
 
 initvars() {
-    shuttle_version="0.3.2"
+    shuttle_version="0.3.3"
     ssl="$HOME/.cache/shuttle/ssl.json"
     rows=$(tput lines)
     cols=$(tput cols)
@@ -146,8 +146,8 @@ deps_chk() {
         pln "${C_B}Fetching dependencies:\n"
         printf '%b\n' "${err[@]}"
 
-        for f in "${err[@]}"; do
-            source ./src/add.bash "$f"
+        for c in "${err[@]}"; do
+            source ./src/add.bash "$c"
         done
     fi
 }

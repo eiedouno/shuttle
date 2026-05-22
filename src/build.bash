@@ -8,7 +8,7 @@ main() {
     get_acting_dir
 
     if [[ -f "$dir/shuttle.json" ]]; then
-	source ./src/build/chk.bash
+        source ./src/build/chk.bash
     fi
 
     local buildinfomsg
@@ -18,12 +18,12 @@ main() {
     source ./src/build/build.bash || xx_failed
 
     if [[ $PORTABLE == "true" ]]; then
-	deps=$(jq -r ".raw_deps[]" "$dir/shuttle.json")
-	source ./lib/texts/port.bash >> "$outfile"
-	printf "chk_deps\n" >> "$outfile"
+        deps=$(jq -r ".raw_deps[]" "$dir/shuttle.json")
+        source ./lib/texts/port.bash >>"$outfile"
+        printf "chk_deps\n" >>"$outfile"
     fi
 
-    printf "src_main \"\$@\"\n" >> "$outfile"
+    printf "src_main \"\$@\"\n" >>"$outfile"
     chmod +x "$outfile"
     [[ -z "$shuttle_id" ]] || id_info=" ($shuttle_id)"
     plnq "\n\n${C_P}Successfully built $name$id_info. $C_LHT(${#filtered[@]} files)\n$C_RS"

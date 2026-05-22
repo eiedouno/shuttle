@@ -1,4 +1,4 @@
-rm -rf $HOME/.cache/shuttle || {
+rm -rf "$HOME/.cache/shuttle" || {
     epln "Unable to reset cache." "Try reseting it yourself with:\n\nrm -rf $HOME/.cache/shuttle"
     exit 1
 }

@@ -1,6 +1,6 @@
 paramc_build() {
     param_h() {
-        for f in $@; do
+        for f in "$@"; do
             if [[ "$f" == --* ]]; then
                 con="${f#--}"
                 param_h2
