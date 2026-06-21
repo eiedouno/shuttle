@@ -7,7 +7,7 @@ main() {
     case $2 in
 
     add)
-        pln "${C_B}Usage: shuttle add <project>\n"
+        pln "${C_B}\e[1m\e[4mUsage:\e[0m shuttle add <project>\n"
         ;;
 
     build)
@@ -23,7 +23,7 @@ main() {
         ;;
 
     init)
-        pln "${C_B}Usage: shuttle init\n$C_RS"
+        pln "${C_B}Usage: shuttle init\n(same as 'shuttle new .')\n$C_RS"
         ;;
 
     run)
@@ -35,7 +35,7 @@ main() {
         ;;
 
     uninstall)
-        pln "${C_B}Usage: shuttle uninstall [file]\n"
+        source ./lib/texts/help/uninstall.bash
         ;;
 
     ssl*)

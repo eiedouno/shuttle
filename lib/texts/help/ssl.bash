@@ -1,5 +1,5 @@
 printf "\e[34m\e[1m\e[4m
-Usage:\e[0m shuttle ssl install [project]
+Usage:\e[0m shuttle ssl install <project>
 
 \e[34m\e[1m\e[4m
 Arguments:\e[0m
