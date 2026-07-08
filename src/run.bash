@@ -8,6 +8,7 @@ main() {
         fi
 
         source ./src/build.bash "$dir"
+        pln "${C_B}$ ${C_RS}$outfile" "${@:3}" "\n"
         $outfile "${@:3}"
 
     elif [ -f "$2" ]; then

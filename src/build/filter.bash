@@ -32,7 +32,10 @@ main() {
             if [[ "$ans" == "y" ]]; then
                 plnq "\e[2K\e[1G\e[1A\e[0m"
             else
-                epln "Denied. Stopping..."
+                if [[ "$VERBOSE" == "true" ]]; then
+                    pln "\e[2K\e[1G\e[${#filtered[@]}A\e[0J\e[2A"
+                fi
+                epln "Denied. Stopping...(no confirmation)" "Use '-f' to force.\nCheck 'shuttle help build' for more information."
                 exit 1
             fi
         else

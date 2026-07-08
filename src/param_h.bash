@@ -31,6 +31,9 @@ paramc_build() {
             f)
                 FORCE=true
                 ;;
+            v)
+                VERBOSE=true
+                ;;
             *)
                 epln "Unknown option '-$char'" "Try 'shuttle help <command>'" && exit 1
                 ;;
@@ -55,16 +58,27 @@ paramc_build() {
         force)
             FORCE=true
             ;;
+        verbose)
+            VERBOSE=true
+            ;;
         *)
             epln "Unknown option '--$con'" "Try 'shuttle help <command>'" && exit 1
             ;;
         esac
     }
     param_h "$@"
+
+    if [[ "$VERBOSE" == "true" && "$QUIET" == "true" ]]; then
+        epln "10IQ idiot managing the software." "Dog, you put verbose and quiet together DX." && exit 1
+    fi
 }
 
 param_h1() {
     case "$1" in
+
+    -i | --interactive)
+        source ./src/cli.bash
+        ;;
 
     -h | --help)
         source ./lib/texts/usage.bash

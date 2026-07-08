@@ -25,6 +25,11 @@ main() {
 
     printf "src_main \"\$@\"\n" >>"$outfile"
     chmod +x "$outfile"
+
+    if [[ $QUIET != "true" && $VERBOSE != "true" ]]; then
+        pln "\e[${#filtered[@]}A\e[1A\e[1G\e[0J\e[2A"
+    fi
+
     [[ -z "$shuttle_id" ]] || id_info=" ($shuttle_id)"
     plnq "\n\n${C_P}Successfully built $name$id_info. $C_LHT(${#filtered[@]} files)\n$C_RS"
 }

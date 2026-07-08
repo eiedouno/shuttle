@@ -7,6 +7,7 @@ Options:\e[0m
     -m, --minimal		Use the least amount of spacing possible in the build.
     -p, --portable		Add extra checks and handlers for on-the-go builds.
     -q, --quiet			Be less verbose.
+    -v, --verbose		Be more verbose.
     --small			Same as --minimal.
 \e[34m\e[1m\e[4m
 Arguments:\e[0m

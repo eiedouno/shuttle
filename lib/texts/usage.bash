@@ -9,6 +9,7 @@ Usage:\e[0m
 \e[34m\e[1m\e[4m
 Options:\e[0m
     -h, --help			Print help
+    -i, --interactive	Launch cli.
     -u, --update		Fetch the latest update
     -y, --update-library	Update the library
     -v,	--version		Print version, info and exit

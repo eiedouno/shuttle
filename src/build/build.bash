@@ -63,9 +63,9 @@ clean() {
             continue
         fi
 
-        if [[ "$clean_line" =~ ^[[:space:]]*source[[:space:]]+.*$ ]]; then
-            indent="${BASH_REMATCH[1]}    "
-            read -r -a args <<<"$clean_line"
+        if [[ "$clean_line" =~ ^([[:space:]]*\([[:space:]]*)?source[[:space:]]+(.*)$ ]]; then
+            indent="${BASH_REMATCH[1]}"
+            read -r -a args <<<"source ${BASH_REMATCH[2]}"
             source_clean "${args[@]:1}"
         fi
 
