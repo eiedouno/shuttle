@@ -5,7 +5,7 @@ printf '%b' "chk_deps() {
 	    err+=(\"\$entry\")
 	fi
     done <<< \"$(printf '%s\n' "$deps" | sed 's/$/\\n/' | tr -d '\n')\"
-    
+
     if [[ \"\$fail\" == \"1\" ]]; then
 	printf '%b' \"The following dependencies were not found on your system:\\\\n\"
 	printf '\\\\n%b\\\\n' \"\${err[@]}\"
