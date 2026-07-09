@@ -63,7 +63,7 @@ clean() {
             continue
         fi
 
-        if [[ "$clean_line" =~ ^([[:space:]]*\([[:space:]]*)?source[[:space:]]+(.*)$ ]]; then
+        if [[ "$clean_line" =~ ^[[:space:]]*(\([[:space:]]*)?source[[:space:]]+(.*)$ ]]; then
             indent="${BASH_REMATCH[1]}"
             read -r -a args <<<"source ${BASH_REMATCH[2]}"
             source_clean "${args[@]:1}"
