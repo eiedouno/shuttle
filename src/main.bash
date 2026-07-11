@@ -8,10 +8,8 @@ main() {
 }
 
 initvars() {
-    shuttle_version="2.0"
+    shuttle_version="2.1"
     ssl="$HOME/.cache/shuttle/ssl.json"
-    rows=$(tput lines)
-    cols=$(tput cols)
 
     # ANSI escape sequences for colors and formatting.
     if [[ ! -t 1 ]]; then

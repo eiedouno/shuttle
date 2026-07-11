@@ -14,7 +14,8 @@ main() {
         exit
     fi
 
+    FORCE=true
     source ./src/install.bash "$HOME/.cache/shuttle/shuttle" || xx_failed
 }
 
-main "$@"
+main

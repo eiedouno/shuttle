@@ -49,7 +49,7 @@ main() {
     fi
 
     if [[ "$RELEASE" == "true" ]]; then
-        plna "\e[s"
+        plna "\x1b7"
         for func in "${filtered[@]}"; do
             if ! rg "^[[:space:]]*(\([[:space:]]*)?source[[:space:]]+(\.)?${func#"$dir"}(.*)$" "$dir" >/dev/null 2>&1; then
                 funcdead["$func"]=1
@@ -60,7 +60,7 @@ main() {
                 fi
             fi
         done
-        plna "\e[u"
+        plna "\x1b8"
     fi
 }
 

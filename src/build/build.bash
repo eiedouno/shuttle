@@ -1,6 +1,9 @@
 main() {
     # add indentation if minimal isn't true
     [[ $MINIMAL == "true" ]] || MININD="    "
+    MINNL="\n"
+    [[ $MINIMAL == "true" ]] && MINNL=" "
+    [[ $MINIMAL == "true" ]] && MINNLL="\n"
 
     outfile="$dir/$name.bash"
 
@@ -26,19 +29,19 @@ main() {
         if [[ "$f" == *lib/texts/* ]]; then
 
             {
-                printf "%s() {\n" "$func_name"
+                printf "%s() {$MINNL" "$func_name"
                 add "$f"
-                printf "}\n"
-                [[ $MINIMAL == "true" ]] || printf "\n\n"
+                printf "}$MINNLL"
+                [[ $MINIMAL == "true" ]] || printf "\n\n\n"
             } >>"$outfile"
 
         else
 
             {
-                printf "%s() {\n" "$func_name"
+                printf "%s() {$MINNL" "$func_name"
                 clean "$f"
-                printf "}\n"
-                [[ $MINIMAL == "true" ]] || printf "\n\n"
+                printf "}$MINNLL"
+                [[ $MINIMAL == "true" ]] || printf "\n\n\n"
             } >>"$outfile"
 
         fi
@@ -50,6 +53,7 @@ main() {
 }
 
 clean() {
+    casef="0"
     while IFS= read -r line || [ -n "$line" ]; do
 
         if [[ "$line" =~ ^[[:space:]]*#.* && "$MINIMAL" == "true" ]]; then
@@ -73,8 +77,62 @@ clean() {
             source_clean "${args[@]:1}"
         fi
 
-        # if clean_line is nothing, print nothing, else, use clean_line with the conditional indentation
-        echo "${clean_line:+$MININD$clean_line}"
+        case "$clean_line" in
+        esac
+        if [[ -n "$clean_line" ]]; then
+            if [[ "$MINIMAL" == "true" ]]; then
+                if [[ "$casef" -ge 1 ]]; then
+                    case "$clean_line" in
+                    *esac)
+                        ((casef--))
+                        printf "%s; " "$clean_line"
+                        ;;
+                    *"\\")
+                        clean_line="${clean_line% \\*}"
+                        printf "%s " "$clean_line"
+                        ;;
+                    *then | *else | *elif | *do | *\{ | *\& | *\| | *\;\; | *\<\( | *\\\)\))
+                        printf "%s " "$clean_line"
+                        ;;
+                    *\)\))
+                        printf "%s; " "$clean_line"
+                        ;;
+                    *\))
+                        printf "%s " "$clean_line"
+                        ;;
+                    *"case "*)
+                        ((casef++))
+                        printf "%s " "$clean_line"
+                        ;;
+                    *)
+                        printf "%s; " "$clean_line"
+                        ;;
+                    esac
+                else
+                    case "$clean_line" in
+                    *"\\")
+                        clean_line="${clean_line% \\*}"
+                        printf "%s " "$clean_line"
+                        ;;
+                    *then | *else | *elif | *do | *\{ | *\& | *\| | *\;\; | *\<\( | *\\\)\))
+                        printf "%s " "$clean_line"
+                        ;;
+                    *\)\))
+                        printf "%s; " "$clean_line"
+                        ;;
+                    *"case "*)
+                        ((casef++))
+                        printf "%s " "$clean_line"
+                        ;;
+                    *)
+                        printf "%s; " "$clean_line"
+                        ;;
+                    esac
+                fi
+            else
+                echo "$MININD$clean_line"
+            fi
+        fi
 
     done <"$1"
 }
