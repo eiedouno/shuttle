@@ -7,7 +7,7 @@ main() {
     case $2 in
 
     add)
-        pln "${C_B}\e[1m\e[4mUsage:\e[0m shuttle add <project>\n"
+        plna "${C_B}\e[1m\e[4mUsage:\e[0m shuttle add <project>\n"
         ;;
 
     build)

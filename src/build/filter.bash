@@ -1,10 +1,14 @@
 main() {
+    declare -g -A funcdead
+    declare -g -A filteredindex
+    local fileindex=0
     mapfile -t files < <(
         find "$dir" -type d -name .git -prune -o \
             -type f -name '*.bash' -print
     )
 
     for f in "${files[@]}"; do
+        ((fileindex++))
 
         ### Ignore Logic
 
@@ -22,6 +26,7 @@ main() {
 
         plnq "$C_RS\n${C_Y}Found $f"
         filtered+=("$f")
+        filteredindex["$f"]=$fileindex
 
     done
 
@@ -30,17 +35,32 @@ main() {
             pln "\n${C_ERR}'${st#"$dir"/}' will be overwritten, continue? (y/n): "
             read -rn1 ans
             if [[ "$ans" == "y" ]]; then
-                plnq "\e[2K\e[1G\e[1A\e[0m"
+                plnqa "\e[2K\e[1G\e[1A\e[0m"
             else
-                if [[ "$VERBOSE" == "true" ]]; then
-                    pln "\e[2K\e[1G\e[${#filtered[@]}A\e[0J\e[2A"
+                if [[ "$VERBOSE" != "true" ]]; then
+                    plnqa "\e[2K\e[1G\e[${#filtered[@]}A\e[0J\e[2A"
                 fi
                 epln "Denied. Stopping...(no confirmation)" "Use '-f' to force.\nCheck 'shuttle help build' for more information."
                 exit 1
             fi
         else
-            plnq "\e[2K\e[1G\e[1A\e[0m"
+            plnqa "\e[2K\e[1G\e[0m"
         fi
+    fi
+
+    if [[ "$RELEASE" == "true" ]]; then
+        plna "\e[s"
+        for func in "${filtered[@]}"; do
+            if ! rg "^[[:space:]]*(\([[:space:]]*)?source[[:space:]]+(\.)?${func#"$dir"}(.*)$" "$dir" >/dev/null 2>&1; then
+                funcdead["$func"]=1
+                if [[ "$QUIET" != "true" && -t 1 ]]; then
+                    pln "\e[${#filtered[@]}A"
+                    pln "\e[${filteredindex["$func"]}B\e[1A"
+                    pln "${C_ERR}DEAD  $func\n"
+                fi
+            fi
+        done
+        plna "\e[u"
     fi
 }
 

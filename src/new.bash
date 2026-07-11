@@ -11,7 +11,7 @@ main() {
         printf "%b" "${C_ERR}Directory '$dir' already exists, override? (y/n)"
         read -rn1 ans
         if [[ "$ans" == "y" ]]; then
-            plnq "\e[2K\e[1G\e[0m"
+            plnqa "\e[2K\e[1G\e[0m"
         else
             epln "Denied. Stopping..."
             exit 1

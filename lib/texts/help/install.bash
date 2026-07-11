@@ -4,8 +4,8 @@ Usage:\e[0m shuttle install [options] [directory|project]
 \e[34m\e[1m\e[4m
 Options:\e[0m
     -f, --force         Do not ask for confirmation.
-    -m, --minimal       Use the least amount of spacing possible in the build.
-    -p, --portable      Add extra checks and handlers for on-the-go builds.
+    -m, --minimal       Use the least amount of spacing possible in the build. (remove white-space)
+    -r, --release       Optimize build and add extra checks and handlers for build distribution.
     -q, --quiet         Be less verbose.
     -v, --verbose       Be more verbose.
     --small             Same as --minimal.

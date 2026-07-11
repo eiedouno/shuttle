@@ -19,11 +19,11 @@ paramc_build() {
             [[ -z "$char" ]] && continue
 
             case $char in
-            p)
-                PORTABLE=true
-                ;;
             q)
                 QUIET=true
+                ;;
+            r)
+                RELEASE=true
                 ;;
             m)
                 MINIMAL=true
@@ -43,17 +43,17 @@ paramc_build() {
 
     param_h2() {
         case $con in
-        portable)
-            PORTABLE=true
-            ;;
         quiet)
             QUIET=true
+            ;;
+        release)
+            RELEASE=true
             ;;
         minimal)
             MINIMAL=true
             ;;
         small)
-            SMALL=true
+            MINIMAL=true
             ;;
         force)
             FORCE=true

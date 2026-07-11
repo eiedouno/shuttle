@@ -4,7 +4,7 @@ main() {
 
     outfile="$dir/$name.bash"
 
-    plnq "\e[$((${#filtered[@]} - 1))A"
+    plnqa "\e[$((${#filtered[@]} - 1))A"
 
     # init outfile
     : >"$outfile"
@@ -12,8 +12,12 @@ main() {
     [[ $MINIMAL == "true" ]] || printf "\n" >>"$outfile"
 
     for f in "${filtered[@]}"; do
+        if [[ "${funcdead["$f"]}" == "1" ]]; then
+            plnq "\n"
+            continue
+        fi
         local currentfunc="$f"
-        plnq "\e[2K\e[1G${C_B}Building $currentfunc ..."
+        plnqa "\e[2K\e[1G${C_B}Building $currentfunc ..."
 
         func_name="${f#"$dir"/}"
         func_name="${func_name%.bash}"
@@ -39,7 +43,7 @@ main() {
 
         fi
 
-        plnq "\e[2K\e[1G"
+        plnqa "\e[2K\e[1G"
         plnq "${C_G}Built $currentfunc\n${C_RS}"
 
     done

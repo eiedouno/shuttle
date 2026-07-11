@@ -1,6 +1,6 @@
 main() {
     if [[ $(id -u) == "0" ]]; then
-        pln "\e[31m\e[1mRunning as ROOT is forbidden.\n"
+        plna "\e[31m\e[1mRunning as ROOT is forbidden.\n"
         exit 1
     fi
     initvars
@@ -8,21 +8,33 @@ main() {
 }
 
 initvars() {
-    shuttle_version="1.0"
+    shuttle_version="2.0"
     ssl="$HOME/.cache/shuttle/ssl.json"
     rows=$(tput lines)
     cols=$(tput cols)
 
     # ANSI escape sequences for colors and formatting.
-    C_G='\e[32m'
-    C_R='\e[31m'
-    C_Y='\e[33m'
-    C_B='\e[34m'
-    C_P='\e[35m'
-    C_RS='\e[0m'
-    C_BLD='\e[1m'
-    C_LHT='\e[2m'
-    C_ERR='\e[31m\e[1m'
+    if [[ ! -t 1 ]]; then
+        C_G=''
+        C_R=''
+        C_Y=''
+        C_B=''
+        C_P=''
+        C_RS=''
+        C_BLD=''
+        C_LHT=''
+        C_ERR=''
+    else
+        C_G='\e[32m'
+        C_R='\e[31m'
+        C_Y='\e[33m'
+        C_B='\e[34m'
+        C_P='\e[35m'
+        C_RS='\e[0m'
+        C_BLD='\e[1m'
+        C_LHT='\e[2m'
+        C_ERR='\e[31m\e[1m'
+    fi
 }
 
 ConvertFrom-JSON() {
@@ -95,7 +107,7 @@ get_acting_dir() {
 # Printf handler
 pln() {
     local safe=${*//%/%%}
-    printf '%b\e[0m' "$safe"
+    printf "%b$C_RS" "$safe"
 }
 
 # Print, but for quiet
@@ -105,11 +117,19 @@ plnq() {
     fi
 }
 
+plna() {
+    [[ -t 1 ]] && pln "$@"
+}
+
+plnqa() {
+    [[ $QUIET != "true" && -t 1 ]] && pln "$@"
+}
+
 # Error output
 epln() {
     local safe1=${1//%/%%}
     local safe2=${2//%/%%}
-    printf "\n\e[31m\e[1m%b\e[0m\n\e[34m%b\n\e[0m" "$safe1" "$safe2"
+    printf "\n$C_ERR%b$C_RS\n$C_B%b\n$C_RS" "$safe1" "$safe2"
 }
 
 get_proj_type() {

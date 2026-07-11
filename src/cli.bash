@@ -1,4 +1,5 @@
 shift
+[[ ! -t 1 ]] && epln "Not in a terminal." && exit 1
 
 main() {
     if [[ "$CLI" == "1" ]]; then
@@ -46,6 +47,11 @@ ans() {
 
     clear)
         printf "\e[3J\e[2J\e[0H"
+        return
+        ;;
+
+    cd*)
+        cd ${ans:2}
         return
         ;;
 

@@ -1,4 +1,5 @@
 main() {
+    RELEASE=true
     if [ -d "$1" ]; then
 
         dir="$(realpath "$1")"
