@@ -1,8 +1,9 @@
 main() {
     # add indentation if minimal isn't true
-    [[ $MINIMAL == "true" ]] || MININD="    "
+    [[ $MINIMAL == "true" ]] || MININD='    '
     MINNL="\n"
     [[ $MINIMAL == "true" ]] && MINNL=" "
+    MINNLL="\n\n\n"
     [[ $MINIMAL == "true" ]] && MINNLL="\n"
 
     outfile="$dir/$name.bash"
@@ -32,7 +33,6 @@ main() {
                 printf "%s() {$MINNL" "$func_name"
                 add "$f"
                 printf "}$MINNLL"
-                [[ $MINIMAL == "true" ]] || printf "\n\n\n"
             } >>"$outfile"
 
         else
@@ -41,7 +41,6 @@ main() {
                 printf "%s() {$MINNL" "$func_name"
                 clean "$f"
                 printf "}$MINNLL"
-                [[ $MINIMAL == "true" ]] || printf "\n\n\n"
             } >>"$outfile"
 
         fi
@@ -155,7 +154,7 @@ source_clean() {
     local source_fn="${source_fn%.bash*}"
     local source_fn="${source_fn//[\/.]/_}"
 
-    clean_line="$MININD$indent$source_fn $allelse"
+    clean_line="$MININD$indent$source_fn${allelse:+ $allelse}"
 }
 
 add() {

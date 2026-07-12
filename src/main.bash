@@ -8,7 +8,7 @@ main() {
 }
 
 initvars() {
-    shuttle_version="2.1"
+    shuttle_version="3.0"
     ssl="$HOME/.cache/shuttle/ssl.json"
 
     # ANSI escape sequences for colors and formatting.
@@ -43,7 +43,7 @@ ConvertFrom-JSON() {
         local value
         value=$(jq -r --arg k "$key" '.[$k]' "$XXjsonfile")
 
-        local XXkeyname="${XXjsonfilename%*.*}_$key"
+        local XXkeyname="${XXjsonfilename//./_}_$key"
         printf -v "$XXkeyname" '%s' "$value"
     done
 }
