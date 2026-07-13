@@ -12,7 +12,6 @@ main() {
     fi
 
     # Building message and information
-    local buildinfomsg
     [[ -n $RELEASE || -n "$MINIMAL" ]] && buildinfomsg+=" (${RELEASE:+"Release"}${MINIMAL:+"Minimal"})"
     plnq "${C_B}Building $name$buildinfomsg...\n\n$C_RS"
     [[ -n "$MINIMAL" ]] && pln "${C_Y}WARNING: Minimal is experimental.\nIf your build fails to execute, consider removing this flag.\n\n"
