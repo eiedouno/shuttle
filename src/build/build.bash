@@ -53,14 +53,38 @@ main() {
 
 clean() {
     casef="0"
+    depth="0"
+    local ifuncname
+    local in_dquote=false
+    local in_squote=false
+    local escaped=false
+
     while IFS= read -r line || [ -n "$line" ]; do
 
         if [[ "$line" =~ ^[[:space:]]*#.* && "$MINIMAL" == "true" ]]; then
-            # no comment-only lines
-            clean_line=""
             continue
         else
             clean_line="$line"
+        fi
+
+        local regp='^[[:space:]]*[^[:space:]]+\(\)[[:space:]]*\{'
+        if [[ "$RELEASE" == "true" && "$line" =~ $regp ]]; then
+            ifuncname="${line%%(*}"
+            ifuncname="${ifuncname##* }"
+            if [[ "${ifuncdead[$ifuncname]}" == "1" ]]; then
+                echo "${MININD}true"
+                local rest="${line#*\{}"
+                local prefix_len=$((${#line} - ${#rest} - 1))
+                depth=1
+                parse_line_depth "${line:prefix_len+1}"
+                continue
+            fi
+        fi
+
+        # Release only
+        if [[ "$depth" -ge "1" ]]; then
+            parse_line_depth "$line"
+            continue
         fi
 
         # Trim trailing whitespace (and leading, if minimal)
@@ -160,6 +184,60 @@ add() {
     while IFS= read -r line || [ -n "$line" ]; do
         echo "$line"
     done <"$1"
+}
+
+parse_line_depth() {
+    local line="$1"
+    local len="${#line}"
+    local char prev
+
+    for ((i = 0; i < len; i++)); do
+        char="${line:i:1}"
+        if $escaped; then
+            escaped=false
+            continue
+        fi
+        if [[ "$char" == "\\" ]]; then
+            if ! $in_squote; then
+                escaped=true
+            fi
+            continue
+        fi
+
+        # String states
+        if $in_dquote; then
+            if [[ "$char" == '"' ]]; then
+                in_dquote=false
+            fi
+        elif $in_squote; then
+            if [[ "$char" == "'" ]]; then
+                in_squote=false
+            fi
+        else
+            # Not in quotes, check comments and count braces
+            if [[ "$char" == '"' ]]; then
+                in_dquote=true
+            elif [[ "$char" == "'" ]]; then
+                in_squote=true
+            elif [[ "$char" == "#" ]]; then
+                # Comments only start at word boundaries (preceded by whitespace/delimiters)
+                if ((i == 0)); then
+                    break
+                else
+                    prev="${line:i-1:1}"
+                    local regp='[[:space:];&|\(\)]'
+                    if [[ "$prev" =~ $regp ]]; then
+                        break
+                    fi
+                fi
+            elif [[ "$char" == "{" ]]; then
+                ((depth++))
+            elif [[ "$char" == "}" ]]; then
+                ((depth--))
+            fi
+        fi
+    done
+    escaped=false
 }
 
 main

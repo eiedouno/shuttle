@@ -1,14 +1,10 @@
 main() {
-    if [[ $(id -u) == "0" ]]; then
-        plna "\e[31m\e[1mRunning as ROOT is forbidden.\n"
-        exit 1
-    fi
     initvars
     source ./src/param_h.bash "$@"
 }
 
 initvars() {
-    shuttle_version="3.0"
+    shuttle_version="3.4"
     ssl="$HOME/.cache/shuttle/ssl.json"
 
     # ANSI escape sequences for colors and formatting.
@@ -39,9 +35,9 @@ ConvertFrom-JSON() {
     local XXjsonfile="$1"
     local XXjsonfilename=$(basename "$1")
 
-    for key in $(jq -r 'keys[]' "$XXjsonfile"); do
+    for key in $(jq -r 'keys[]' "$XXjsonfile" 2>/dev/null); do
         local value
-        value=$(jq -r --arg k "$key" '.[$k]' "$XXjsonfile")
+        value=$(jq -r --arg k "$key" '.[$k]' "$XXjsonfile" 2>/dev/null)
 
         local XXkeyname="${XXjsonfilename//./_}_$key"
         printf -v "$XXkeyname" '%s' "$value"
@@ -135,7 +131,7 @@ get_proj_type() {
     local key="type"
 
     if jq -e ".${key}" "$file" >/dev/null 2>&1; then
-        PROJECT_TYPE=$(jq -r ".${key}" "$file")
+        PROJECT_TYPE=$(jq -r ".${key}" "$file" 2>/dev/null)
         if [[ $PROJECT_TYPE != "script" && $PROJECT_TYPE != "library" ]]; then
             epln "Project types are 'script' and 'library'. You specified $PROJECT_TYPE." "Hint: change 'type' inside 'shuttle.json' to 'script'." && exit 1
         fi
@@ -156,7 +152,7 @@ deps_chk() {
                 fail=1
                 err+=("$entry")
             fi
-        done < <(jq -r ".${key}[]" "$file")
+        done < <(jq -r ".${key}[]" "$file" 2>/dev/null)
     fi
 
     if [[ "$fail" == "1" ]]; then
@@ -183,7 +179,7 @@ raw_deps_chk() {
                 fail=1
                 err+=("$entry")
             fi
-        done < <(jq -r ".${key}[]" "$file")
+        done < <(jq -r ".${key}[]" "$file" 2>/dev/null)
     fi
 
     if [[ "$fail" == "1" ]]; then

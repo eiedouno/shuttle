@@ -1,6 +1,6 @@
 {
     "id": "shuttle",
-    "version": "3.0",
+    "version": "3.4",
     "type": "script",
     "raw_deps": [
         "jq",

@@ -19,10 +19,13 @@ main() {
 
     # Build
     source ./src/build/filter.bash
+    if [[ "$RELEASE" == "true" ]]; then
+        source ./src/build/release.bash || xx_failed
+    fi
     source ./src/build/build.bash || xx_failed
 
     if [[ $RELEASE == "true" ]]; then
-        deps=$(jq -r ".raw_deps[]?" "$dir/shuttle.json")
+        deps=$(jq -r ".raw_deps[]?" "$dir/shuttle.json" 2>/dev/null)
         source ./lib/texts/rel.bash >>"$outfile"
         printf "__SHUTTLE_INIT \"\$@\"\n" >>"$outfile"
     fi
@@ -36,12 +39,15 @@ main() {
 
     # Completion status & DEAD functions
     plnq "\n\n"
-    [[ -n "${funcdead[*]}" && "$QUIET" != "true" ]] && pln "${C_ERR}The following files were marked as DEAD and were not added to the build.\n" && for f in "${!funcdead[@]}"; do
-        pln "${C_ERR}${f#"$dir"/} ${C_LHT}not sourced\n"
-    done && pln "\n"
+    [[ (-n "${funcdead[*]}" || -n "${ifuncdead[*]}") && "$QUIET" != "true" ]] && pln "${C_ERR}The following functions were marked as DEAD and were not added to the build.\n" && for f in "${!funcdead[@]}"; do
+        pln "${C_P}${C_BLD}file ${C_ERR}${f#"$dir"/} ${C_LHT}not sourced\n"
+    done && for f in "${!ifuncdead[@]}"; do
+        pln "${C_Y}function ${C_ERR}in ${funcs_from[$f]#"$dir"/} -> $f ${C_LHT}unused code\n"
+    done
+    [[ (-n "${funcdead[*]}" || -n "${ifuncdead[*]}") && "$QUIET" != "true" ]] && pln "\n"
 
     [[ -z "$shuttle_json_id" ]] || id_info=" ($shuttle_json_id)"
-    plnq "${C_P}Successfully built $name$id_info. $C_LHT${#filtered[@]}${funcdead[*]:+"$C_ERR - ${#funcdead[@]}$C_RS$C_P$C_LHT"} files\n$C_RS"
+    plnq "${C_G}Successfully built $name$id_info. $C_LHT${#filtered[@]}${funcdead[*]:+"$C_ERR - ${#funcdead[@]}$C_RS$C_G$C_LHT"} files\n$C_RS"
 }
 
 main "$@"

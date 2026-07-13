@@ -25,7 +25,7 @@ install() {
         epln "Unable to install file." "Try running as root or changing ownership of '/usr/local/bin'"
         exit 1
     }
-    plnq "${C_P}Successfully installed $filename.\n$C_RS"
+    plnq "${C_G}Successfully installed $filename.\n$C_RS"
 }
 
 main "$@"
