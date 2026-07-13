@@ -58,6 +58,7 @@ clean() {
         if [[ "$line" =~ ^[[:space:]]*#.* && "$MINIMAL" == "true" ]]; then
             # no comment-only lines
             clean_line=""
+            continue
         else
             clean_line="$line"
         fi
@@ -76,8 +77,6 @@ clean() {
             source_clean "${args[@]:1}"
         fi
 
-        case "$clean_line" in
-        esac
         if [[ -n "$clean_line" ]]; then
             if [[ "$MINIMAL" == "true" ]]; then
                 if [[ "$casef" -ge 1 ]]; then

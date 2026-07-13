@@ -22,7 +22,7 @@ main() {
     source ./src/build/build.bash || xx_failed
 
     if [[ $RELEASE == "true" ]]; then
-        deps=$(jq -r ".raw_deps[]" "$dir/shuttle.json")
+        deps=$(jq -r ".raw_deps[]?" "$dir/shuttle.json")
         source ./lib/texts/rel.bash >>"$outfile"
         printf "__SHUTTLE_INIT \"\$@\"\n" >>"$outfile"
     fi
