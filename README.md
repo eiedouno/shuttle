@@ -6,7 +6,7 @@ A simple way to create and manage complex scripts. Inspired by Cargo.
 
 ## Installation
 
-You can **[build from source 󰁜](https://github.com/eiedouno/shuttle/wiki/Install)**
+You can **[build from source →](https://github.com/eiedouno/shuttle/wiki/Install)**
 
 Easy copy-paste install:
 ```
@@ -17,7 +17,7 @@ cd shuttle
 
 ## Documentation
 
-Documentation about building with shuttle can be found in the [wiki 󰁜](https://github.com/eiedouno/shuttle/wiki)
+Documentation about building with shuttle can be found in the [wiki →](https://github.com/eiedouno/shuttle/wiki)
 
 ## Features :D
 
