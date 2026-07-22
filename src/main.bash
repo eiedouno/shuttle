@@ -4,7 +4,7 @@ main() {
 }
 
 initvars() {
-    shuttle_version="3.4"
+    shuttle_version="4.0"
     ssl="$HOME/.cache/shuttle/ssl.json"
 
     # ANSI escape sequences for colors and formatting.

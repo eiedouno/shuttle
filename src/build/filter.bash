@@ -1,5 +1,5 @@
 main() {
-    declare -g -A funcdead
+    declare -g -A filedead
     declare -g -A filteredindex
     local fileindex=0
     mapfile -t files < <(
@@ -19,17 +19,14 @@ main() {
             continue
         fi
 
-        if head -n2 "$f" | grep -q '\.ignore'; then
-            plnq "\n${C_B}Skipping ignored file: ${f#"$dir"}"
-            continue
-        fi
-
         plnq "$C_RS\n${C_Y}Found $f"
+
         filtered+=("$f")
         filteredindex["$f"]=$fileindex
 
     done
 
+    # if build file already found, confirm overwrite
     if [[ "$stovrw" == 1 ]]; then
         if [[ $FORCE != "true" ]]; then
             pln "\n${C_ERR}'${st#"$dir"/}' will be overwritten, continue? (y/n): "
@@ -48,11 +45,12 @@ main() {
         fi
     fi
 
+    # if a file isn't sourced, mark it "dead"
     if [[ "$RELEASE" == "true" ]]; then
         plna "\x1b7"
         for func in "${filtered[@]}"; do
             if ! rg "^[[:space:]]*(\([[:space:]]*)?source[[:space:]]+(\.)?${func#"$dir"}(.*)$" "$dir" >/dev/null 2>&1; then
-                funcdead["$func"]=1
+                filedead["$func"]=1
                 if [[ "$QUIET" != "true" && -t 1 ]]; then
                     pln "\e[${#filtered[@]}A"
                     pln "\e[${filteredindex["$func"]}B\e[1A"
