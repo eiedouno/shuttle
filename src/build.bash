@@ -16,18 +16,24 @@ main() {
     plnq "${C_B}Building $name$buildinfomsg...\n\n$C_RS"
     [[ -n "$MINIMAL" ]] && pln "${C_Y}WARNING: Minimal is experimental.\nIf your build fails to execute, consider removing this flag.\n\n"
 
+    if [[ "$RELEASE" == "true" ]]; then
+        buildSteps=6
+    else
+        buildSteps=2
+    fi
+
     # Filter build files
     source ./src/build/filter.bash
 
     # Build
     if [[ "$RELEASE" == "true" ]]; then
-        source ./src/build/release/pre.bash || xx_failed
+        source ./src/build/release/pre.bash
     fi
 
-    source ./src/build/build.bash || xx_failed
+    source ./src/build/build.bash
 
     if [[ "$RELEASE" == "true" ]]; then
-        source ./src/build/release/post.bash || xx_failed
+        source ./src/build/release/post.bash
     fi
 
     # Release additions
@@ -42,14 +48,25 @@ main() {
     chmod +x "$outfile"
 
     # UI clear
-    if [[ $QUIET != "true" && $VERBOSE != "true" ]]; then
-        plna "\e[$((${#filtered[@]} + 1))A\e[1G\e[0J\e[2A"
+    plnva "\x1b7\e[$((${#filtered[@]} + 1))A\e[1G"
+    if [[ "$VERBOSE" != "true" ]]; then
+        plnqa "\e[0J"
     fi
 
-    # Completion status & DEAD functions
-    plnq "\n\n"
+    # Progress Bar
+    plnqa "\e[2A\e[G"
+    buildStep=$buildSteps
+    buildDiff=""
+    buildStepd="Finished"
+    progbar_print
 
-    if [[ "${funcdellist[src_main]}" == 1 && "$QUIET" != "true" ]]; then
+    plnva "\x1b8"
+
+    # Completion status & DEAD functions
+    plnqa "\n"
+    plnva "\n"
+
+    if [[ ("${funcdellist[src_main]}" == 1 || "${filedead["$dir/src/main.bash"]}" == 1) && "$QUIET" != "true" ]]; then
         pln "${C_Y}[WARNING]: Script may fail to execute! :: ${C_B}./src/main.bash was found to do nothing!\n"
     fi
 
@@ -75,6 +92,26 @@ main() {
 
     [[ -z "$shuttle_json_id" ]] || id_info=" ($shuttle_json_id)"
     plnq "${C_G}Successfully built $name$id_info. $C_LHT${#filtered[@]}${filedead[*]:+"$C_ERR - ${#filedead[@]}$C_RS$C_G$C_LHT"} files\n$C_RS"
+}
+
+progbar_print() {
+    if [[ $buildProgress -gt 100 ]]; then
+        buildProgress=100
+    fi
+    if [[ "$COLUMNS" -ge 80 ]]; then
+        plnqa "\e[2K${C_B}($buildStep/$buildSteps) -> $buildStepd... \e[K${C_LHT}${buildDiff:+":: $buildDiff"}$C_RS\n\e[2K${C_B}[${C_Y}=\e[$((buildProgress * 30 / 100))b${C_B}>\e[34G] ${C_P}%$buildProgress\n"
+    elif [[ "$COLUMNS" -ge 34 ]]; then
+        plnqa "\e[2K${C_B}($buildStep/$buildSteps) -> $buildStepd...$C_RS\n\e[2K${C_B}[${C_Y}=\e[$((buildProgress * 30 / 100))b${C_B}>\e[34G] ${C_P}%$buildProgress\n"
+    fi
+}
+
+progbar_setup() {
+    plnqa "\e[2A\e[G"
+}
+
+progbar_update() {
+    progbar_setup
+    progbar_print
 }
 
 main "$@"

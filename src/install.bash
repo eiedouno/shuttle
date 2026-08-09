@@ -21,6 +21,20 @@ install() {
     local filename
     filename=$(basename "$file")
     filename="${filename%.bash}"
+
+    if [[ -e "/usr/local/bin/$filename" && "$FORCE" != "true" ]]; then
+        [[ "$QUIET" == "true" ]] && exit 1
+        pln "${C_ERR}/usr/local/bin/$filename will be overwritten, continue? (y/n)"
+        read -rn1 ans
+        if [[ "$ans" == "y" ]]; then
+            plnqa "\e[2K\e[G"
+        else
+            plna "\e[2K"
+            epln "Denied. Stopping... (No confirmation)" "Tip: Use '-f'\nFor more information use 'shuttle help install'"
+            exit 1
+        fi
+    fi
+
     cp "$file" "/usr/local/bin/$filename" || {
         epln "Unable to install file." "Try running as root or changing ownership of '/usr/local/bin'"
         exit 1

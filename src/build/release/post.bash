@@ -1,12 +1,25 @@
 # For release builds, stripping useless code from final.
 main() {
-    plna "\e[2K"
-    pln "${C_B}Cleaning..."
+    plnva "\e[2K"
+    plnv "${C_B}Cleaning..."
+    plnva "\e[1A"
+
+    plnva "\x1b7\e[$((${#filtered[@]}))A"
+    ((buildStep++))
+    buildDiff="Trimming unused functions"
+    buildStepd="Cleaning"
+    buildProgress=0
+    progbar_update
+
+    local outlines
+    outlines=$(wc -l <"$outfile")
 
     work
     while [[ "$worked" == "1" ]]; do
         work
     done
+
+    plnva "\x1b8\n"
 
     mv -f "$outfile.working1" "$outfile.working" >/dev/null 2>&1 || xx_failed
     mv -f "$outfile.working" "$outfile" >/dev/null 2>&1 || xx_failed
@@ -14,6 +27,8 @@ main() {
 
 # best function name, I know
 work() {
+    local number=0
+
     declare -g -A funcdellist
     declare -A depth=0
     declare -A ifuncname
@@ -124,9 +139,18 @@ work() {
                 echo "$line" >>"$outfile.working"
             fi
         fi
+
+        ((number++))
+        buildProgress=$((number * 100 / outlines))
+        progbar_update
     done <"$workfile"
 
+    ((buildStep++))
+    buildDiff="Evaluating changes"
+    buildProgress=0
     worked=0
+    number=0
+    outlines=$(wc -l <"$outfile.working")
     : >"$outfile.working1"
     local word
     local u
@@ -147,6 +171,7 @@ work() {
             if [[ -n "$word" && ${funcdellist["$word"]} == 1 ]]; then
                 u=1
                 worked=1
+                ((buildSteps++))
             fi
 
         done
@@ -154,6 +179,10 @@ work() {
         [[ "$u" == 1 ]] && u=0 && continue
 
         echo "$line" >>"$outfile.working1"
+
+        ((number++))
+        buildProgress=$((number * 100 / outlines))
+        progbar_update
     done <"$outfile.working"
 }
 

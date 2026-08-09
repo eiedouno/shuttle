@@ -1,4 +1,18 @@
 main() {
+    local number=0
+    # progress bar
+    if [[ "$RELEASE" == "true" ]]; then
+        buildStep=4
+    else
+        buildStep=2
+    fi
+    buildStepd="Compiling"
+    buildProgress="0"
+    buildDiff=""
+    plnva "\x1b7\e[$((${#filtered[@]}))A"
+    progbar_update
+    plnva "\x1b8"
+
     # add indentation if minimal isn't true ( I do things the hard way then leave them because they work )
     [[ $MINIMAL == "true" ]] || MININD='    '
     [[ $MINIMAL == "true" ]] && MINNL=" " || MINNL="\n"
@@ -6,7 +20,7 @@ main() {
 
     outfile="$dir/$name.bash"
 
-    plnqa "\e[$((${#filtered[@]} - 1))A"
+    plnva "\e[$((${#filtered[@]} - 1))A"
 
     # init outfile
     : >"$outfile"
@@ -18,12 +32,12 @@ main() {
 
         # If nothing links to it, skip it
         if [[ "${filedead["$f"]}" == "1" ]]; then
-            plnq "\n"
+            plnv "\n"
             continue
         fi
 
         local currentfunc="$f"
-        plnqa "\e[2K\e[1G${C_B}Building $currentfunc ..."
+        plnva "\e[2K\e[1G${C_B}Building $currentfunc ..."
 
         func_name="${f#"$dir"/}"
         func_name="${func_name%.bash}"
@@ -49,8 +63,16 @@ main() {
 
         fi
 
-        plnqa "\e[2K\e[1G"
-        plnq "${C_G}Built $currentfunc\n${C_RS}"
+        ((number++))
+        plnva "\e[2K\e[1G"
+        plnv "${C_G}Built $currentfunc${C_RS}"
+
+        # progress bar
+        plnva "\x1b7\e[$((${filteredindex["$f"]} - 1))A"
+        buildDiff="Built $currentfunc"
+        buildProgress=$((number * 100 / ${#filtered[@]}))
+        progbar_update
+        plnva "\x1b8\n"
 
     done
 }
@@ -183,6 +205,7 @@ clean() {
 # convert source calls to the new function names
 source_clean() {
     local yes=false
+    local f
     local yozo
 
     # do the slow for-loop test bc I didn't know about `declare -A` back I wrote this part

@@ -4,7 +4,7 @@ main() {
 }
 
 initvars() {
-    shuttle_version="4.0"
+    shuttle_version="5.0"
     ssl="$HOME/.cache/shuttle/ssl.json"
 
     # ANSI escape sequences for colors and formatting.
@@ -100,8 +100,7 @@ get_acting_dir() {
 
 # Printf handler
 pln() {
-    local safe=${*//%/%%}
-    printf "%b$C_RS" "$safe"
+    printf "%b$C_RS" "$*"
 }
 
 # Print, but for quiet
@@ -117,6 +116,14 @@ plna() {
 
 plnqa() {
     [[ $QUIET != "true" && -t 1 ]] && pln "$@"
+}
+
+plnv() {
+    [[ "$VERBOSE" == "true" ]] && pln "$@"
+}
+
+plnva() {
+    [[ "$VERBOSE" == "true" && -t 1 ]] && pln "$@"
 }
 
 # Error output
