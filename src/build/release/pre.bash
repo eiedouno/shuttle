@@ -35,12 +35,13 @@ main() {
 
             fi
 
-            ((number++))
-
-            buildProgress=$((number * 100 / ${#filtered[@]}))
-
-            progbar_update
+            ss
         done <"$f"
+        ((number++))
+        buildProgress=$((number * 100 / ${#filtered[@]}))
+        progbar_update
+
+        ss
     done
 
     buildStep=3
@@ -59,9 +60,12 @@ main() {
         ((number++))
         buildProgress=$((number * 100 / ${#funcs[@]}))
         progbar_update
+
+        ss
     done
 
     plnva "\x1b8"
+
 }
 
 main

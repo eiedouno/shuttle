@@ -33,6 +33,7 @@ main() {
         buildDiff="Found $f"
         progbar_update
         plnva "\x1b8"
+        ss
 
     done
 
@@ -56,6 +57,7 @@ main() {
                     pln "\x1b8"
                 fi
             fi
+            ss
         done
         plnva "\x1b8"
     fi

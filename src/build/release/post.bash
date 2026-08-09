@@ -17,6 +17,7 @@ main() {
     work
     while [[ "$worked" == "1" ]]; do
         work
+        ss
     done
 
     plnva "\x1b8\n"
@@ -143,6 +144,8 @@ work() {
         ((number++))
         buildProgress=$((number * 100 / outlines))
         progbar_update
+
+        ss
     done <"$workfile"
 
     ((buildStep++))
@@ -174,6 +177,7 @@ work() {
                 ((buildSteps++))
             fi
 
+            ss
         done
 
         [[ "$u" == 1 ]] && u=0 && continue
@@ -183,6 +187,8 @@ work() {
         ((number++))
         buildProgress=$((number * 100 / outlines))
         progbar_update
+
+        ss
     done <"$outfile.working"
 }
 

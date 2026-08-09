@@ -4,7 +4,7 @@ main() {
 }
 
 initvars() {
-    shuttle_version="5.0"
+    shuttle_version="5.1"
     ssl="$HOME/.cache/shuttle/ssl.json"
 
     # ANSI escape sequences for colors and formatting.
@@ -195,6 +195,10 @@ raw_deps_chk() {
         pln "${C_B}Please install them with your package manager.\n$C_RS"
         exit 1
     fi
+}
+
+ss() {
+    [[ "$SLOW" == "true" ]] && sleep "0.01"
 }
 
 main "$@"

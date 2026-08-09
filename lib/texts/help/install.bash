@@ -9,6 +9,7 @@ Options:\e[0m
     -q, --quiet         Be less verbose.
     -v, --verbose       Be more verbose.
     --small             Same as --minimal.
+    --slow              Be slow.
 \e[34m\e[1m\e[4m
 Arguments:\e[0m
     [directory]  The directory of the shuttle script to build and install. Leave blank for current directory.

@@ -61,6 +61,9 @@ paramc_build() {
         verbose)
             VERBOSE=true
             ;;
+        slow)
+            SLOW=true
+            ;;
         *)
             epln "Unknown option '--$con'" "Try 'shuttle help <command>'" && exit 1
             ;;

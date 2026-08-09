@@ -74,6 +74,7 @@ main() {
         progbar_update
         plnva "\x1b8\n"
 
+        ss
     done
 }
 
