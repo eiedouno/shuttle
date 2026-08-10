@@ -7,7 +7,7 @@ main() {
 trap 'plnqa "\e[?25h"; exit 1' SIGINT SIGTERM
 
 initvars() {
-    shuttle_version="5.2.2"
+    shuttle_version="5.2.3"
     ssl="$HOME/.cache/shuttle/ssl.json"
 
     # ANSI escape sequences for colors and formatting.
@@ -82,7 +82,7 @@ xx_failed() {
 
 exit() {
     plnqa "\e[?25h"
-    exit "$1"
+    builtin exit "$1"
 }
 
 get_acting_dir() {
