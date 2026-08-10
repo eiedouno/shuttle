@@ -6,7 +6,7 @@ main() {
 
     plnva "\x1b7\e[$((${#filtered[@]}))A"
     ((buildStep++))
-    buildDiff="Trimming unused functions"
+    buildDiff="Trimming unused content"
     buildStepd="Cleaning"
     buildProgress=0
     progbar_update
@@ -142,14 +142,13 @@ work() {
         fi
 
         ((number++))
-        buildProgress=$((number * 100 / outlines))
+        buildProgress=$((number * 100 / 2 / outlines))
         progbar_update
 
         ss
     done <"$workfile"
 
-    ((buildStep++))
-    buildDiff="Evaluating changes"
+    buildDiff="Validating changes"
     buildProgress=0
     worked=0
     number=0
@@ -177,7 +176,6 @@ work() {
                 ((buildSteps++))
             fi
 
-            ss
         done
 
         [[ "$u" == 1 ]] && u=0 && continue
@@ -185,7 +183,7 @@ work() {
         echo "$line" >>"$outfile.working1"
 
         ((number++))
-        buildProgress=$((number * 100 / outlines))
+        buildProgress=$(((number * 100 / 2 / outlines) + 50))
         progbar_update
 
         ss

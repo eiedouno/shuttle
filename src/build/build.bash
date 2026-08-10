@@ -1,14 +1,11 @@
 main() {
     local number=0
+
     # progress bar
-    if [[ "$RELEASE" == "true" ]]; then
-        buildStep=4
-    else
-        buildStep=2
-    fi
+    ((buildStep++))
     buildStepd="Compiling"
     buildProgress="0"
-    buildDiff=""
+    buildDiff="Compiling source"
     plnva "\x1b7\e[$((${#filtered[@]}))A"
     progbar_update
     plnva "\x1b8"

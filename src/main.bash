@@ -1,10 +1,13 @@
 main() {
     initvars
     source ./src/param_h.bash "$@"
+    printf "\e[?25h"
 }
 
+trap 'plnqa "\e[?25h"; exit 1' SIGINT SIGTERM
+
 initvars() {
-    shuttle_version="5.1"
+    shuttle_version="5.2"
     ssl="$HOME/.cache/shuttle/ssl.json"
 
     # ANSI escape sequences for colors and formatting.

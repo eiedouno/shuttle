@@ -1,4 +1,5 @@
 main() {
+    local number=0
     declare -g -A filedead
     declare -g -A filteredindex
     local fileindex=0
@@ -45,6 +46,15 @@ main() {
 
     # if a file isn't sourced, mark it "dead"
     if [[ "$RELEASE" == "true" ]]; then
+        number=0
+        ((buildStep++))
+        plnva "\x1b7\e[${#filtered[@]}A"
+        buildStepd="Validating Files"
+        buildProgress=0
+        buildDiff=""
+        progbar_update
+        plnva "\x1b8"
+
         plnva "\x1b7"
         for func in "${filtered[@]}"; do
             if ! rg "^[[:space:]]*(\([[:space:]]*)?source[[:space:]]+(\.)?${func#"$dir"}(.*)$" "$dir" >/dev/null 2>&1; then
@@ -57,9 +67,14 @@ main() {
                     pln "\x1b8"
                 fi
             fi
+
+            plnva "\x1b7\e[${#filtered[@]}A"
+            ((number++))
+            buildProgress=$((number * 100 / ${#filtered[@]}))
+            progbar_update
+            plnva "\x1b8"
             ss
         done
-        plnva "\x1b8"
     fi
 }
 

@@ -22,6 +22,8 @@ main() {
         buildSteps=2
     fi
 
+    plnqa "\e[?25l"
+
     # Filter build files
     source ./src/build/filter.bash
 

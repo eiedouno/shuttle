@@ -7,7 +7,7 @@ main() {
     plnva "\e[1A"
 
     plnva "\x1b7\e[$((${#filtered[@]}))A"
-    buildStep=2
+    ((buildStep++))
     buildDiff=""
     buildStepd="Finding functions"
     buildProgress=0
@@ -16,7 +16,7 @@ main() {
     local funcname
     local regp='^[[:space:]]*[^[:space:]]+\(\)[[:space:]]*\{'
 
-    # Using assosiative arrays for speed checking ( if [[ "$funcs["$xxx"] == "1" ]]; )
+    # Using associative arrays for speed checking ( if [[ "$funcs["$xxx"] == "1" ]]; )
     declare -g -A funcs
     declare -g -A funcdead
     declare -g -A funcs_from
@@ -35,7 +35,6 @@ main() {
 
             fi
 
-            ss
         done <"$f"
         ((number++))
         buildProgress=$((number * 100 / ${#filtered[@]}))
@@ -44,9 +43,9 @@ main() {
         ss
     done
 
-    buildStep=3
+    ((buildStep++))
     buildDiff="Omitting useless functions"
-    buildStepd="Evaluating function calls"
+    buildStepd="Verifying function calls"
     buildProgress=0
     progbar_update
 
