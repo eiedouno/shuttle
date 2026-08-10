@@ -7,7 +7,7 @@ main() {
 trap 'plnqa "\e[?25h"; exit 1' SIGINT SIGTERM
 
 initvars() {
-    shuttle_version="5.2"
+    shuttle_version="5.2.1"
     ssl="$HOME/.cache/shuttle/ssl.json"
 
     # ANSI escape sequences for colors and formatting.
@@ -76,6 +76,7 @@ ssl_fetch() {
 
 xx_failed() {
     epln "An unknown error occurred."
+    plnqa "\e\?25h"
     exit 1
 }
 
