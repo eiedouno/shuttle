@@ -1,5 +1,5 @@
 printf "{
-    \"id\": \"$USER.$name\",
+    \"id\": \"$USER.$projectName\",
     \"version\": \"0.1\",
     \"type\": \"script\"
 }"

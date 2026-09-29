@@ -17,7 +17,7 @@ printf '%b' "__SHUTTLE_INIT() {
         local __buildshuttleversion=\"$(printf $shuttle_version)\"
         local __buildversion=\"$(printf ${shuttle_json_version:-"(none)"})\"
         local __buildid=\"$(printf ${shuttle_json_id:-"(null)"})\"
-        local __buildflags=\"$(printf ${buildinfomsg:-"(null)"})\"
+        local __buildflags=\"$(printf ${buildInfoMsg:-"(null)"})\"
         printf '%b' \"[SHUTTLE] Build info:\\\\nshuttle version:\$__buildshuttleversion\\\\nbuild version:\$__buildversion\\\\nbuild id: \\\"\$__buildid\\\"\\\\nbuild opts: \\\"\$__buildflags\\\"\\\\n\"
         exit
     fi

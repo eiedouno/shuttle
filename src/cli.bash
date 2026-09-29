@@ -1,7 +1,7 @@
 shift
 [[ ! -t 1 ]] && epln "Not in a terminal." && exit 1
 
-main() {
+cli() {
     if [[ "$CLI" == "1" ]]; then
         pln "\n${C_Y}${C_BLD}WARNING: ${C_B}CLI instance already exists, continue? (y/n)"
         read -rn1 ans
@@ -60,4 +60,4 @@ ans() {
     (source ./src/param_h.bash $ans)
 }
 
-main
+cli

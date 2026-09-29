@@ -1,19 +1,19 @@
 if [[ "$1" == "" ]]; then
-    dir="$PWD"
+    workingDir="$PWD"
 else
-    dir="$(realpath "$1")"
+    workingDir="$(realpath "$1")"
 fi
 
-main() {
-    get_acting_dir
+build() {
+    get_working_dir
 
-    if [[ -f "$dir/shuttle.json" ]]; then
+    if [[ -f "$workingDir/shuttle.json" ]]; then
         source ./src/build/chk.bash
     fi
 
     # Build start message and information
-    [[ -n $RELEASE || -n "$MINIMAL" ]] && buildinfomsg+=" (${RELEASE:+"Release"}${MINIMAL:+"Minimal"})"
-    plnq "${C_B}Building $name$buildinfomsg...\n\n$C_RS"
+    [[ -n $RELEASE || -n "$MINIMAL" ]] && buildInfoMsg+=" (${RELEASE:+"Release"}${MINIMAL:+"Minimal"})"
+    plnq "${C_B}Building $projectName$buildInfoMsg...\n\n$C_RS"
     [[ -n "$MINIMAL" ]] && pln "${C_Y}WARNING: Minimal is experimental.\nIf your build fails to execute, consider removing this flag.\n\n"
 
     if [[ "$RELEASE" == "true" ]]; then
@@ -40,7 +40,7 @@ main() {
 
     # Release additions
     if [[ $RELEASE == "true" ]]; then
-        deps=$(jq -r ".raw_deps[]?" "$dir/shuttle.json" 2>/dev/null)
+        deps=$(jq -r ".raw_deps[]?" "$workingDir/shuttle.json" 2>/dev/null)
         source ./lib/texts/rel.bash >>"$outfile"
         printf "__SHUTTLE_INIT \"\$@\"\n" >>"$outfile"
     fi
@@ -68,7 +68,7 @@ main() {
     plnqa "\n"
     plnva "\n"
 
-    if [[ ("${funcdellist[src_main]}" == 1 || "${filedead["$dir/src/main.bash"]}" == 1) && "$QUIET" != "true" ]]; then
+    if [[ ("${funcdellist[src_main]}" == 1 || "${filedead["$workingDir/src/main.bash"]}" == 1) && "$QUIET" != "true" ]]; then
         pln "${C_Y}[WARNING]: Script may fail to execute! :: ${C_B}./src/main.bash was found to do nothing!\n"
     fi
 
@@ -80,12 +80,12 @@ main() {
 
         # FILES
         for f in "${!filedead[@]}"; do
-            pln "${C_P}${C_BLD}file ${C_ERR}${f#"$dir"/} $C_RS$C_ERR${C_LHT}not sourced\n"
+            pln "${C_P}${C_BLD}file ${C_ERR}${f#"$workingDir"/} $C_RS$C_ERR${C_LHT}not sourced\n"
         done
 
         # FUNCTIONS
         for f in "${!funcdead[@]}"; do
-            pln "${C_Y}function ${C_ERR}in ${funcs_from[$f]#"$dir"/} -> $f ${C_LHT}unused code\n"
+            pln "${C_Y}function ${C_ERR}in ${funcs_from[$f]#"$workingDir"/} -> $f ${C_LHT}unused code\n"
         done
 
     fi
@@ -93,7 +93,7 @@ main() {
     [[ (-n "${filedead[*]}" || -n "${funcdead[*]}") && "$QUIET" != "true" ]] && pln "\n"
 
     [[ -z "$shuttle_json_id" ]] || id_info=" ($shuttle_json_id)"
-    plnq "${C_G}Successfully built $name$id_info. $C_LHT${#filtered[@]}${filedead[*]:+"$C_ERR - ${#filedead[@]}$C_RS$C_G$C_LHT"} files\n$C_RS"
+    plnq "${C_G}Successfully built $projectName$id_info. $C_LHT${#filtered[@]}${filedead[*]:+"$C_ERR - ${#filedead[@]}$C_RS$C_G$C_LHT"} files\n$C_RS"
 }
 
 progbar_print() {
@@ -104,6 +104,9 @@ progbar_print() {
         plnqa "\e[2K${C_B}($buildStep/$buildSteps) -> $buildStepd... \e[K${C_LHT}${buildDiff:+":: $buildDiff"}$C_RS\n\e[2K${C_B}[${C_Y}=\e[$((buildProgress * 30 / 100))b${C_B}>\e[34G] ${C_P}%$buildProgress\n"
     elif [[ "$COLUMNS" -ge 34 ]]; then
         plnqa "\e[2K${C_B}($buildStep/$buildSteps) -> $buildStepd...$C_RS\n\e[2K${C_B}[${C_Y}=\e[$((buildProgress * 30 / 100))b${C_B}>\e[34G] ${C_P}%$buildProgress\n"
+    fi
+    if [[ "$DEBUG" == "true" ]]; then
+        plnqa "\e[2K"
     fi
 }
 
@@ -116,4 +119,4 @@ progbar_update() {
     progbar_print
 }
 
-main "$@"
+build "$@"

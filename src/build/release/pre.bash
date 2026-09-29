@@ -1,6 +1,6 @@
 # For release builds, stripping unused code.
 # # if a function isn't called, mark it dead
-main() {
+buildPreAdditions() {
     local number=0
     plnva "\n"
     plnv "${C_B}Pre-evaluating cleanup..."
@@ -52,7 +52,7 @@ main() {
     number=0
     # if the functions aren't called add them to $funcdead[]
     for f in "${!funcs[@]}"; do
-        if ! rg -P "\b${f}\b(?![[:space:]]*\()" "$dir" | grep -v '^[[:space:]]*#' >/dev/null 2>&1; then
+        if ! rg -P "\b${f}\b(?![[:space:]]*\()" "$workingDir" | grep -v '^[[:space:]]*#' >/dev/null 2>&1; then
             funcdead["$f"]=1
 
         fi
@@ -67,4 +67,4 @@ main() {
 
 }
 
-main
+buildPreAdditions

@@ -1,4 +1,4 @@
-main() {
+helpMsg() {
     if [[ -z "$2" ]]; then
         source ./lib/texts/usage.bash
         exit 0
@@ -56,5 +56,4 @@ main() {
     esac
 }
 
-main "$@"
-
+helpMsg "$@"

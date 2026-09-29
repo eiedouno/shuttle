@@ -1,4 +1,4 @@
-main() {
+run() {
     if [ -d "$2" ]; then
 
         if [[ "$2" == "" ]]; then
@@ -7,7 +7,7 @@ main() {
             dir="$(realpath "$2")"
         fi
 
-        source ./src/build.bash "$dir"
+        source ./src/build.bash "$workingDir"
         pln "${C_B}$ ${C_RS}$outfile" "${@:3}" "\n"
         $outfile "${@:3}"
 
@@ -22,4 +22,4 @@ main() {
     fi
 }
 
-main "$@"
+run "$@"

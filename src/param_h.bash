@@ -1,20 +1,20 @@
-paramc_build() {
-    param_h() {
+setFlags_build() {
+    evalFlags() {
         for f in "$@"; do
             if [[ "$f" == --* ]]; then
                 con="${f#--}"
-                param_h2
+                flags_h2
             elif [[ "$f" == -* ]]; then
                 con="${f#-}"
-                param_h1
+                flags_h1
             else
-                g1="$f"
+                leftoverFlags="$f"
             fi
 
         done
     }
 
-    param_h1() {
+    flags_h1() {
         while IFS= read -r -n1 char; do
             [[ -z "$char" ]] && continue
 
@@ -41,7 +41,7 @@ paramc_build() {
         done <<<"$con"
     }
 
-    param_h2() {
+    flags_h2() {
         case $con in
         quiet)
             QUIET=true
@@ -69,14 +69,14 @@ paramc_build() {
             ;;
         esac
     }
-    param_h "$@"
+    evalFlags "$@"
 
     if [[ "$VERBOSE" == "true" && "$QUIET" == "true" ]]; then
-        epln "10IQ idiot managing the software." "Dog, you put verbose and quiet together DX." && exit 1
+        epln "10IQ idiot managing the software." "Dog, you put verbose and quiet together DX" && exit 1
     fi
 }
 
-param_h1() {
+handleOptions() {
     case "$1" in
 
     -i | --interactive)
@@ -97,7 +97,7 @@ param_h1() {
 
     -y | --update-library)
         source ./src/update_l.bash
-        (($# >= "2")) && param_h2 "${@:2}"
+        (($# >= "2")) && handleCommands "${@:2}"
         ;;
 
     --clear-cache)
@@ -105,16 +105,16 @@ param_h1() {
         ;;
 
     *)
-        param_h2 "$@"
+        handleCommands "$@"
         ;;
     esac
 }
 
-param_h2() {
+handleCommands() {
     case "$1" in
 
     add)
-        source ./src/add.bash "${2:+"${@:2}"}"
+        source ./src/addToProject.bash "${2:+"${@:2}"}"
         ;;
 
     help)
@@ -122,8 +122,8 @@ param_h2() {
         ;;
 
     b | build)
-        paramc_build "${2:+"${@:2}"}"
-        source ./src/build.bash "$g1"
+        setFlags_build "${2:+"${@:2}"}"
+        source ./src/build.bash "$leftoverFlags"
         ;;
 
     docs)
@@ -131,11 +131,11 @@ param_h2() {
         ;;
 
     new)
-        source ./src/new.bash "$2"
+        source ./src/newProject.bash "$2"
         ;;
 
     init)
-        source ./src/init.bash
+        source ./src/initProject.bash
         ;;
 
     r | run)
@@ -143,12 +143,12 @@ param_h2() {
         ;;
 
     install)
-        paramc_build "${2:+"${@:2}"}"
-        source ./src/install.bash "$g1"
+        setFlags_build "${2:+"${@:2}"}"
+        source ./src/installProject.bash "$leftoverFlags"
         ;;
 
     uninstall)
-        source ./src/uninstall.bash "$2"
+        source ./src/uninstallProject.bash "$2"
         ;;
 
     ssl)
@@ -167,4 +167,4 @@ if [[ "$#" == "0" ]]; then
     exit 1
 fi
 
-param_h1 "$@"
+handleOptions "$@"

@@ -7,9 +7,9 @@ printf "#!/usr/bin/env bash
 # so it is not recommended to add code to this.
 #
 # This file is for calling your script correctly. You must
-# call your script from HERE ($dir) with this command:
+# call your script from HERE ($workingDir) with this command:
 #
-# './$name'
+# './$projectName'
 #
 # If you are new to building with Shuttle please read
 # the documentation for more information.

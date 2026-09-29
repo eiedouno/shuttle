@@ -1,10 +1,10 @@
-main() {
+filterProject() {
     local number=0
     declare -g -A filedead
     declare -g -A filteredindex
     local fileindex=0
     mapfile -t files < <(
-        find "$dir" -type d -name .git -prune -o \
+        find "$workingDir" -type d -name .git -prune -o \
             -type f -name '*.bash' -print
     )
 
@@ -20,7 +20,7 @@ main() {
         ### Ignore Logic
 
         # Ignore it's own build
-        if [[ "$f" == "$dir/$name.bash" ]]; then
+        if [[ "$f" == "$workingDir/$projectName.bash" ]]; then
             continue
         fi
 
@@ -57,7 +57,7 @@ main() {
 
         plnva "\x1b7"
         for func in "${filtered[@]}"; do
-            if ! rg "^[[:space:]]*(\([[:space:]]*)?source[[:space:]]+(\.)?${func#"$dir"}(.*)$" "$dir" >/dev/null 2>&1; then
+            if ! rg "^[[:space:]]*(\([[:space:]]*)?source[[:space:]]+(\.)?${func#"$workingDir"}(.*)$" "$workingDir" >/dev/null 2>&1; then
                 filedead["$func"]=1
                 if [[ "$VERBOSE" == "true" && -t 1 ]]; then
                     pln "\x1b7"
@@ -78,4 +78,4 @@ main() {
     fi
 }
 
-main
+filterProject

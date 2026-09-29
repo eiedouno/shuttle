@@ -1,4 +1,4 @@
-main() {
+update() {
     if [[ -d "$HOME/.cache/shuttle/shuttle" ]]; then
         cd ~/.cache/shuttle/shuttle || xx_failed
         git reset origin --hard >/dev/null
@@ -18,4 +18,4 @@ main() {
     source ./src/install.bash "$HOME/.cache/shuttle/shuttle" || xx_failed
 }
 
-main
+update

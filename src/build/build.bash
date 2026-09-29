@@ -1,4 +1,4 @@
-main() {
+buildProject() {
     local number=0
 
     # progress bar
@@ -15,7 +15,7 @@ main() {
     [[ $MINIMAL == "true" ]] && MINNL=" " || MINNL="\n"
     [[ $MINIMAL == "true" ]] && MINNLL="\n" || MINNLL="\n\n\n"
 
-    outfile="$dir/$name.bash"
+    outfile="$workingDir/$projectName.bash"
 
     plnva "\e[$((${#filtered[@]} - 1))A"
 
@@ -36,7 +36,7 @@ main() {
         local currentfunc="$f"
         plnva "\e[2K\e[1G${C_B}Building $currentfunc ..."
 
-        func_name="${f#"$dir"/}"
+        func_name="${f#"$workingDir"/}"
         func_name="${func_name%.bash}"
         func_name="${func_name//[\/.]/_}"
 
@@ -197,6 +197,7 @@ clean() {
             fi
         fi
 
+        ss
     done <"$1"
 }
 
@@ -208,7 +209,7 @@ source_clean() {
 
     # do the slow for-loop test bc I didn't know about `declare -A` back I wrote this part
     for f in "${filtered[@]}"; do
-        yozo="${f#"$dir"/}"
+        yozo="${f#"$workingDir"/}"
         if [[ "$*" == *"$yozo"* ]]; then
             yes=true
         fi
@@ -228,6 +229,7 @@ source_clean() {
 add() {
     while IFS= read -r line || [ -n "$line" ]; do
         echo "$line"
+        ss
     done <"$1"
 }
 
@@ -288,4 +290,4 @@ parse_line_depth() {
     printf '%s' "$ldepth"
 }
 
-main
+buildProject

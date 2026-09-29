@@ -1,5 +1,5 @@
 # For release builds, stripping useless code from final.
-main() {
+buildPostAdditions() {
     plnva "\e[2K"
     plnv "${C_B}Cleaning..."
     plnva "\e[1A"
@@ -14,9 +14,10 @@ main() {
     local outlines
     outlines=$(wc -l <"$outfile")
 
-    work
+    stripPost
     while [[ "$worked" == "1" ]]; do
-        work
+        ((buildStep++))
+        stripPost
         ss
     done
 
@@ -27,7 +28,7 @@ main() {
 }
 
 # best function name, I know
-work() {
+stripPost() {
     local number=0
 
     declare -g -A funcdellist
@@ -171,6 +172,7 @@ work() {
 
             # if word is in the func deletion list, swallow the line
             if [[ -n "$word" && ${funcdellist["$word"]} == 1 ]]; then
+                buildDiff="Removed $aline"
                 u=1
                 worked=1
                 ((buildSteps++))
@@ -190,4 +192,4 @@ work() {
     done <"$outfile.working"
 }
 
-main
+buildPostAdditions
