@@ -1,0 +1,45 @@
+installMgr() {
+    RELEASE=true
+    if [ -d "$1" ]; then
+
+        dir="$(realpath "$1")"
+        source ./src/build.bash "$workingDir"
+        install "$outfile"
+
+    elif [ -f "$1" ]; then
+        install "$1"
+    elif [[ "$1" == "" ]]; then
+        source ./src/build.bash "."
+        install "$outfile"
+    else
+        source ./src/ssl_install.bash "$1"
+    fi
+}
+
+install() {
+    local file="$1"
+    local filename
+    filename=$(basename "$file")
+    filename="${filename%.bash}"
+
+    if [[ -e "/usr/local/bin/$filename" && "$FORCE" != "true" ]]; then
+        [[ "$QUIET" == "true" ]] && exit 1
+        pln "${C_ERR}/usr/local/bin/$filename will be overwritten, continue? (y/n)"
+        read -rn1 ans
+        if [[ "$ans" == "y" ]]; then
+            plnqa "\e[2K\e[G"
+        else
+            plna "\e[2K"
+            epln "Denied. Stopping... (No confirmation)" "Tip: Use '-f'\nFor more information use 'shuttle help install'"
+            exit 1
+        fi
+    fi
+
+    cp "$file" "/usr/local/bin/$filename" || {
+        epln "Unable to install file." "Try running as root or changing ownership of '/usr/local/bin'"
+        exit 1
+    }
+    plnq "${C_G}Successfully installed $filename. ${C_LHT}/usr/local/bin/$filename\n$C_RS"
+}
+
+installMgr "$@"
