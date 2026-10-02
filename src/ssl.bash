@@ -3,4 +3,4 @@ if [[ "$1" == "" ]]; then
     exit 1
 fi
 [[ -z "$2" ]] && epln "Specify a project bro" "I don't wanna write an error message just for you being dumb." && exit 1
-source ./src/ssl_installProject.bash "${@:2}"
+source ./src/ssl_install.bash "${@:2}"
