@@ -15,7 +15,7 @@ update() {
     fi
 
     FORCE=true
-    source ./src/install.bash "$HOME/.cache/shuttle/shuttle" || handleFailed
+    source ./src/installProject.bash "$HOME/.cache/shuttle/shuttle" || handleFailed
 }
 
 update

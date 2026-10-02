@@ -8,7 +8,7 @@ main() {
 trap 'printf >&2 "\e[?25h"; exit 1' SIGINT SIGTERM
 
 initiateVars() {
-    shuttle_version="5.3.2"
+    shuttle_version="5.3.3"
     ssl="$HOME/.cache/shuttle/ssl.json"
 
     # ANSI escape sequences for colors and formatting.
