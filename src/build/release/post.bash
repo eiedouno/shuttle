@@ -105,7 +105,9 @@ stripPost() {
                     ((funcdepth--))
 
                     # if function isn't empty
-                    if [[ "${func_is_empty[$((funcdepth + 1))]}" == "false" ]]; then
+                    if [[ "${func_is_empty[$((funcdepth + 1))]}" == "false" ]] || [[ "${ifuncname[$((funcdepth + 1))]}" == lib_* ]]; then
+                        echo ${ifuncname[$((funcdepth + 1))]}
+                        [[ -n $SLOW ]] && sleep 1
 
                         # if inside a function, add function to parent function's buffer, else just add it to the file
                         if [[ "$funcdepth" == 0 ]]; then
@@ -115,6 +117,7 @@ stripPost() {
                         else
 
                             func_buffer[$funcdepth]+=$'\n'"${func_buffer[$((funcdepth + 1))]}"
+                            func_is_empty[$funcdepth]=false
 
                         fi
 
@@ -126,7 +129,7 @@ stripPost() {
 
                     # Reset tracking states for the next one
                     func_buffer[$((funcdepth + 1))]=""
-                    func_is_empty[$funcdepth]=true
+                    func_is_empty[$((funcdepth + 1))]=true
 
                 else
 
