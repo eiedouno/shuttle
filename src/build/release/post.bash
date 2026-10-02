@@ -23,8 +23,8 @@ buildPostAdditions() {
 
     plnva "\x1b8\n"
 
-    mv -f "$outfile.working1" "$outfile.working" >/dev/null 2>&1 || xx_failed
-    mv -f "$outfile.working" "$outfile" >/dev/null 2>&1 || xx_failed
+    mv -f "$outfile.working1" "$outfile.working" >/dev/null 2>&1 || handleFailed
+    mv -f "$outfile.working" "$outfile" >/dev/null 2>&1 || handleFailed
 }
 
 # best function name, I know
