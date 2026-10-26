@@ -7,27 +7,27 @@ site_author = "Preston Ryczek"
 copyright = "Made by real humans"
 
 repo_url = "https://github.com/eiedouno/shuttle"
-repo_name = "shuttle"
+repo_name = "eiedouno/shuttle"
 # edit_uri = "edit/main/docs/"
 
 nav = [
-{ "Shuttle Documentation" = "index.md" },
-{ "Getting Started" = [
-    { "Getting Started" = "startup/index.md" },
-    { "Installation" = "startup/installation.md" },
-    { "Using Shuttle" = "startup/usage.md" },
-    ]},
-{ "Developing with Shuttle" = [
-    { "Developing with Shuttle" = "developing/index.md" },
+    { "Shuttle Documentation" = "index.md" },
     { "Getting Started" = [
-        { "Master Tutorial" = "developing/tutorial/index.md" },
-        { "Creating a project" = "developing/tutorial/creating_a_project.md" },
-        { "Sourcing files" = "developing/tutorial/sourcing.md" },
-        { "Special Folders" = "developing/tutorial/special.md" },
-        ]},
-    ]},
-{ "FAQ" = "FAQ.md" },
-{ "Change Log" = "changelog.md" },
+        { "Getting Started" = "startup/index.md" },
+        { "Installation" = "startup/installation.md" },
+        { "Using Shuttle" = "startup/usage.md" },
+    ] },
+    { "Developing with Shuttle" = [
+        { "Developing with Shuttle" = "developing/index.md" },
+        { "Getting Started" = [
+            { "Master Tutorial" = "developing/tutorial/index.md" },
+            { "Creating a project" = "developing/tutorial/creating_a_project.md" },
+            { "Sourcing files" = "developing/tutorial/sourcing.md" },
+            { "Special Folders" = "developing/tutorial/special.md" },
+        ] },
+    ] },
+    { "FAQ" = "FAQ.md" },
+    { "Change Log" = "changelog.md" },
 ]
 
 # extra_css = ["stylesheets/extra.css"]
@@ -125,7 +125,7 @@ pymdownx.mark = {}
 pymdownx.smartsymbols = {}
 # pymdownx.snippets.base_path = "includes"
 pymdownx.superfences.custom_fences = [
-  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
+    { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
 ]
 pymdownx.tabbed.alternate_style = true
 pymdownx.tabbed.combine_header_slug = true
