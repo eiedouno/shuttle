@@ -1,0 +1,13 @@
+{
+    "id": "shuttle",
+    "name": "shuttle",
+    "version": "0.1",
+    "type": "script",
+    "shell": "bash",
+    "raw_deps": [
+        "jq",
+        "curl",
+        "git",
+        "rg"
+    ]
+}
