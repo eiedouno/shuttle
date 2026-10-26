@@ -4,7 +4,7 @@ site_name = "Shuttle Documentation"
 # site_description = "Your project description"
 site_author = "Preston Ryczek"
 
-copyright = "Made by real humans"
+copyright = "Made with  by real humans"
 
 repo_url = "https://github.com/eiedouno/shuttle"
 repo_name = "eiedouno/shuttle"
