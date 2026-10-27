@@ -17,7 +17,7 @@ For more information, read the [install page](https://eiedouno.github.io/shuttle
 
 ## Documentation
 
-Documentation about building with shuttle can be found on [https://eiedouno.github.io/shuttle]
+Documentation about building with shuttle can be found on https://eiedouno.github.io/shuttle
 
 ## Features :D
 

@@ -107,7 +107,7 @@ clean_source_call() {
         funcname="$(convert_function_name "$funcname")"
         line="${line//"$3\""/"\"$funcname\""}"
     elif [[ -n "$3" && -z "$2" ]]; then
-        epln "Unresolveable source call in $file" "${VERBOSE:-"For more details, use verbose: 'shuttle build -v"}"
+        epln "Unresolveable source call in $file" "${VERBOSE:-"For more details, use verbose: 'shuttle build -v'"}"
         plnv "\n${C_P}Converted line: \"${C_RS}$line${C_P}\"\n"
         plnv "\n\n${C_Y}[Help]: If you intend to source a file outside of the project,\nuse absolute paths (don't use '.'), and change '${C_G}source${C_Y}' to '${C_G}.${C_Y}' on\nthe non-local source call\n\n[EXAMPLE]:\n\n    source ./$3\n"
         exit 1

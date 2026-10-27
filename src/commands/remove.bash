@@ -11,7 +11,7 @@ remove() {
             epln "Failed removing $1 from this project" "If this doesn't work, you can remove the ${C_G}deps${C_B} entry inside ${C_G}shuttle.json${C_B} and remove the ${C_G}/lib/$1${C_B} directory"
         }
 
-        jq --arg v "$1" '.deps //= [] | .deps -= [$v] | .deps |= unique' "$working_directory/shuttle.json" >"$working_directory/.shuttle.json" && mv -f "$working_directory/.shuttle.json" "$working_directory/shuttle.json" || handleFailed
+        jq --arg v "$1" '.deps //= [] | .deps -= [$v] | .deps |= unique' "$working_directory/shuttle.json" >"$working_directory/.shuttle.json" && mv -f "$working_directory/.shuttle.json" "$working_directory/shuttle.json" || failed
 
     else
         epln "Library $C_G$1$C_ERR is not installed"
