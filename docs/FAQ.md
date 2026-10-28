@@ -2,6 +2,8 @@
 icon: lucide/circle-question-mark
 ---
 
+# :lucide-circle-question-mark: FAQ
+
 ??? info "What shells does shuttle support?"
 
     Shuttle supports `sh`, `bash`, and (partially) `zsh` scripts. By default, shuttle will install projects as bash scripts.  

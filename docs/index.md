@@ -2,6 +2,8 @@
 icon: lucide/home
 ---
 
+# :lucide-home: Shuttle Documentation
+
 !!! Important
 
     You are reading the docs addressed to the latest version of shuttle. Previous versions are not supported and are not documented here.

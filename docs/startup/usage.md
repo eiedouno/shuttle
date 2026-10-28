@@ -2,9 +2,11 @@
 icon: lucide/terminal
 ---
 
+# :lucide-terminal: Using Shuttle
+
 !!! Abstract "This guide assumes you already have shuttle installed. If you don't, see [installing](installation.md)."
 
-## Installing Projects
+## :lucide-package-plus: Installing Projects
 
 !!! Warning
 
@@ -26,7 +28,7 @@ shuttle install project
 shuttle install https://github.com/user/project
 ```
 
-## Uninstalling Projects
+## :lucide-package-x: Uninstalling Projects
 
 ??? failure "Shuttle isn't limited to only shuttle projects!"
 

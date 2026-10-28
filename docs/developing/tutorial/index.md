@@ -2,7 +2,7 @@
 icon: lucide/rocket
 ---
 
-# Master Tutorial
+# :lucide-notepad-text: Master Tutorial
 
 **Welcome to the master tutorial! In this guide you'll learn how to:**
 
@@ -12,7 +12,7 @@ icon: lucide/rocket
 
 Thank you for choosing shuttle to organize and manage your projects!
 
-## Important notices
+## :lucide-circle-alert: Important notices
 
 !!! Abstract "This guide assumes you have basic familiarity with bash scripting. If you don't, consult the internet for a guide. This is not a "learn shell" guide."
 

@@ -1,6 +1,10 @@
-# Building a new project
+---
+icon: lucide/package-plus
+---
 
-## Creating the project
+# :lucide-package-plus: Building a new project
+
+## :lucide-folder-plus: Creating the project
 
 You'll start your learning by making a directory to store your shuttle project. Generally, projects are stored inside the `~/projects` directory, but can be anywhere on your file system.
 
@@ -32,7 +36,7 @@ The `project` file is your projects 'front' entry point, and it's where you call
 
 Only add code to the `project` file if you're looking to start your code via a custom entry environment. If you don't know, don't modify it.
 
-### shuttle.json
+### :lucide-file-braces: shuttle.json
 
 `shuttle.json` is the project settings file. It is always called this. The default values are provided here for convenience. **It intentionally isn't needed**, though it allows shuttle to better understand and properly handle your project.
 
@@ -45,7 +49,9 @@ Only add code to the `project` file if you're looking to start your code via a c
 }
 ```
 
-## Running the project
+!!! note "This file is explained in-depth on it's [dedicated concept page](../concept/json_config.md)."
+
+## :lucide-play: Running the project
 
 You can run the project also, though there is one caveat. **You must always run uncompiled shuttle script source code from the root directory of the project.** This is because of how the source command resolves file location.
 
@@ -57,7 +63,7 @@ As mentioned above, just run the `project` file (the 'front' entry point) from y
 
 It really isn't that hard folks, it's just glorified scripting.
 
-## Building the project
+## :lucide-package: Building the project
 
 Building a project with shuttle is easy.
 
@@ -76,3 +82,5 @@ shuttle build project
 Simple enough, right? Like stated (and demonstrated), it's just glorified scripting.
 
 The project build output location is inside the root directory of your project under the name `project.bash`.
+
+!!! note "This concept is explained in-depth on it's [dedicated concept page](../concept/building.md)."

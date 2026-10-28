@@ -1,6 +1,12 @@
+---
+icon: lucide/link
+---
+
+# :lucide-link: Sourcing Files
+
 Sourcing different files inside a codebase is the entire point of shuttle. It's how shuttle is able to be useful at all.
 
-## What is sourcing?
+## :lucide-circle-question-mark: What is sourcing?
 
 If you don't know, the `source` command is a shell-builtin that allows you to run commands from another file, and keep the changes made to your shell. Shuttle uses it to split the code between multiple files.
 
@@ -8,7 +14,9 @@ If you don't know, the `source` command is a shell-builtin that allows you to ru
 help source
 ```
 
-## Sourcing a project file
+## :lucide-file-input: Sourcing a project file
+
+!!! note "This concept is explained in-depth on it's [dedicated concept page](../concept/building.md#sourcing)."
 
 You can source a project file with two simple rules.
 
@@ -70,7 +78,7 @@ The cool thing about shuttle is that all file references starting with `./` and 
 
 All of these are fully valid in shuttle, thanks to some clever regex.
 
-## Debugging
+## :lucide-bug: Debugging
 
 !!! info "Be sure to report bugs to the [issues page](https://github.com/eiedouno/shuttle/issues) on GitHub!"
 

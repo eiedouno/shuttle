@@ -4,7 +4,7 @@ site_name = "Shuttle Documentation"
 # site_description = "Your project description"
 site_author = "Preston Ryczek"
 
-copyright = "Made by real humans"
+copyright = "Made by real humans | No AI"
 
 repo_url = "https://github.com/eiedouno/shuttle"
 repo_name = "eiedouno/shuttle"
@@ -21,10 +21,17 @@ nav = [
         { "Developing with Shuttle" = "developing/index.md" },
         { "Getting Started" = [
             { "Master Tutorial" = "developing/tutorial/index.md" },
-            { "Creating a project" = "developing/tutorial/creating_a_project.md" },
-            { "Sourcing files" = "developing/tutorial/sourcing.md" },
+            { "Creating a Project" = "developing/tutorial/creating_a_project.md" },
+            { "Sourcing Files" = "developing/tutorial/sourcing.md" },
             { "Special Folders" = "developing/tutorial/special.md" },
         ] },
+        { "Concepts" = [
+            { "Concepts" = "developing/concept/index.md" },
+            { "shuttle.json" = "developing/concept/json_config.md" },
+            { "Building" = "developing/concept/building.md" },
+            { "Installing" = "developing/concept/installing.md" },
+        ] },
+        { "Developer FAQ" = "developing/FAQ.md" },
     ] },
     { "FAQ" = "FAQ.md" },
     { "Change Log" = "changelog.md" },

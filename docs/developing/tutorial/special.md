@@ -1,8 +1,14 @@
+---
+icon: lucide/folder-bookmark
+---
+
+# :lucide-folder-bookmark: Special Folders
+
 Shuttle's special folders are both to simplify the build system whilst also providing organization to the project.
 
 Shuttle currently has one special folder.
 
-## `lib/texts`
+## :lucide-folder-code: `lib/texts`
 
 In a simple summary, **the `lib/texts/` directory is where all of the multi-line text goes**.
 
@@ -21,3 +27,7 @@ This directory was created because the build system would be too slow and advanc
 └── src
     └── main.bash
 ```
+
+Typically, files inside the the `lib/texts` directory are just a `printf` statement. You shouldn't use this directory for any sort of code because it won't be properly converted when building. Examples can be found inside shuttle's source code, files  
+[`lib/texts/usage.bash`](https://github.com/eiedouno/shuttle/blob/main/lib/texts/usage.bash) (shuttle's help command) and  
+[`lib/texts/template_start.bash`](https://github.com/eiedouno/shuttle/blob/main/lib/texts/template_start.bash) (shuttle's front entry point template).

@@ -2,6 +2,8 @@
 icon: lucide/rocket
 ---
 
+# :lucide-rocket: Getting Started
+
 If you are new to shuttle, or if you're trying to install in general, read the [installation](installation.md) page.
 
 If you're looking to develop with shuttle, see the page on [developing with shuttle](../developing/index.md).

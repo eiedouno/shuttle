@@ -2,10 +2,12 @@
 icon: lucide/scroll-text
 ---
 
+# :lucide-scroll-text: Changelog
+
 !!! info inline end "Latest"
 
-## Version 0.1a
+## :lucide-package: Version 0.1a
 
 Shuttle's first official rewrite and first working version
 
-**Added:** Commands: add, remove, new, init, build, install, uninstall
+:lucide-circle-plus: **Added:** Commands: add, remove, new, init, build, install, uninstall
