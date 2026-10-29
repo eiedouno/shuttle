@@ -21,9 +21,6 @@ if [[ -f "$working_directory/shuttle.json" ]]; then
     fi
 
     plnv "${C_B}Project name: ${C_G}$PROJECT_NAME${PROJECT_ID:+" ($PROJECT_ID)"}${C_RS}\n${C_B}Project type: ${C_G}$PROJECT_TYPE\n\n"
-
-    check_deps "$working_directory/shuttle.json"
-    check_raw_deps "$working_directory/shuttle.json"
 else
     PROJECT_NAME="${working_directory##*/}"
 fi

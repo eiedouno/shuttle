@@ -10,7 +10,7 @@ build_finish_msg() {
 }
 
 init_progbar() {
-    build_steps=3
+    build_steps=4
     plnqa "\e[?25l"
     get_term_size
 }
@@ -20,7 +20,17 @@ get_working_dir "$1"
 source ./src/commands/build/check.bash
 
 build_start_msg
+
+plnqa "\n"
+
 init_progbar
+build_step=1
+build_step_desc="Verifying Dependencies"
+build_progress=0
+progbar_update
+
+check_deps "$working_directory/shuttle.json"
+check_raw_deps "$working_directory/shuttle.json"
 
 source ./src/commands/build/filter.bash
 source ./src/commands/build/compile.bash

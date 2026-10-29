@@ -23,6 +23,11 @@ source ./src/ssl/common.bash
 
 get_working_dir
 
+if [[ "$#" -eq 0 ]]; then
+    epln "Specify a library to remove"
+    exit 1
+fi
+
 for projectid in "$@"; do
     remove "$projectid"
     plnq "${C_G}Successfully removed $projectid from this project\n"

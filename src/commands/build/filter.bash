@@ -68,13 +68,14 @@ filter_project_files() {
 #     done
 # }
 
-plnqa "\n"
-build_step=1
+find_project_files
+
+((build_step++))
 build_step_desc="Finding Files"
+build_diff=
 build_progress=0
 progbar_update
 
-find_project_files
 filter_project_files
 # make_relative_project_files
 # [[ "$RELEASE" == "true" ]] && validate_project_files

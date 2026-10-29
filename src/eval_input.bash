@@ -81,6 +81,7 @@ evaluate_arguments() {
         if [[ -z "$arg" ]]; then
             :
         elif [[ "$arg" == "--" ]]; then
+            remove_index ARGS "$index"
             break
         elif [[ "$arg" == --* ]]; then
             arg="${arg#--}"
@@ -98,12 +99,12 @@ evaluate_arguments() {
     # printf '%b' "output args: ${ARGS[*]}\nforce: $FORCE\nquiet: $QUIET\nverbose: $VERBOSE\nlink: $LINK\nslow: $SLOW\n"
     if [[ -n "$command" && "$evaled_command" != "2" ]]; then
         set -- "${ARGS[@]}"
-        source "$command" "$@"
+        source "$command" "${ARGS[@]}"
     fi
 
     [[ -z "$evaled_command" ]] && no_command
 
-    # For an unknown reason, this function always returns 1, make it return 0
+    # Because the above command makes this function always return 1, make it return 0
     return 0
 }
 

@@ -50,11 +50,19 @@ check_deps() {
     ' "$jsonfile" 2>/dev/null)
 
     if ((${#missing[@]} > 0)); then
-        pln "${C_B}Fetching dependencies:\n"
-        printf '%s\n' "${missing[@]}"
+        # pln "${C_B}Fetching dependencies:\n"
+        # printf '%s\n' "${missing[@]}"
 
+        local entryindex=0
         for entry in "${missing[@]}"; do
-            source ./src/commands/add.bash "$entry"
+            sleep 1
+            build_diff="Fetching dependencies: ${missing[*]:$entryindex}"
+            build_progress=$((entryindex * 100 / ${#missing[@]}))
+            progbar_update
+
+            QUIET=true source ./src/commands/add.bash "$entry"
+            ((entryindex++))
+            sleep 1
         done
     fi
 }
@@ -88,8 +96,13 @@ check_raw_deps() {
     ' "$jsonfile" 2>/dev/null)
 
     if ((${#missing[@]} > 0)); then
+        build_diff="${C_ERR}One or more dependencies not present"
+        build_progress=100
+        progbar_update
+
+        plnqa '\n\n\n\e[0J'
         pln "${C_ERR}The following dependencies were not found on your system:\n"
-        printf '%s\n' "${missing[@]}"
+        printf '%b\n' "${missing[@]}" ""
         pln "${C_B}Please install them with your package manager.\n$C_RS"
         exit 1
     fi

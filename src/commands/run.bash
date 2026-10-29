@@ -11,11 +11,6 @@ run_project() {
     fi
 }
 
-read -r input <<<"$@"
-
-if [[ "$input" =~ .*[[:space:]]?--[[:space:]].* ]]; then
-    input="${input#*-- }"
-    read -ra passed_args <<<"$input"
-fi
+read -ra passed_args <<<"$@"
 
 run_project "$@"
