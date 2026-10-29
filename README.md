@@ -19,7 +19,7 @@ cd shuttle
 ./shuttle install
 ```
 
-For more information, read the [install page](https://eiedouno.github.io/shuttle) in the docs.
+For more information, read the [install page](https://eiedouno.github.io/shuttle/startup/installation) in the docs.
 
 ## Documentation
 
