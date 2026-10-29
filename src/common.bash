@@ -50,9 +50,6 @@ check_deps() {
     ' "$jsonfile" 2>/dev/null)
 
     if ((${#missing[@]} > 0)); then
-        # pln "${C_B}Fetching dependencies:\n"
-        # printf '%s\n' "${missing[@]}"
-
         local entryindex=0
         for entry in "${missing[@]}"; do
             sleep 1
