@@ -13,6 +13,7 @@ General optimizations and QOL updates
 **Added:**  
 :lucide-circle-plus: Handle for empty library for `remove` command.  
 :lucide-circle-plus: Dependency checks are now a part of the progress bar.  
+:lucide-circle-plus: Added check for `$HOME/.local/bin` when installing (mkdir if it doesn't exist)  
 
 **Changed:**  
 :lucide-pencil-sparkles: Parameter handling for the `run` command's passed arguments.  
@@ -20,6 +21,8 @@ General optimizations and QOL updates
 :lucide-pencil-sparkles: Build output file is now only opened once for read/write during the compilation process, instead of once per line.  
 :lucide-pencil-sparkles: Verbose text for `build` command now outputs to `STDERR`.  
 :lucide-pencil-sparkles: `lib/texts` files are no longer read line-by-line in the compilation process.  
+:lucide-pencil-sparkles: fixed `add` command's destination duplication  
+
 
 !!! info inline end "Latest"
 
