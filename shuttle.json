@@ -1,7 +1,7 @@
 {
     "id": "shuttle",
     "name": "shuttle",
-    "version": "0.1",
+    "version": "0.1.1",
     "type": "script",
     "shell": "bash",
     "raw_deps": [

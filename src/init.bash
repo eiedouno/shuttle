@@ -21,7 +21,7 @@ declare -g -A options=(
     [u]=update
     [sync]="./src/update_ssl.bash"
     [y]=sync
-    [clear-cache]="./src/commands/clear_cache.bash"
+    ["clear-cache"]="./src/commands/clear_cache.bash"
 )
 
 declare -g -A flags=(
@@ -53,7 +53,7 @@ declare -g -A commands=(
     [uninstall]=1
 )
 
-shuttle_version="0.1"
+shuttle_version="0.1.1"
 ssl="$HOME/.cache/shuttle/ssl.json"
 
 # If output is a terminal, then create the color values (for pipeing and redirecting)

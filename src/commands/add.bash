@@ -2,8 +2,8 @@ add() {
     local work_directory="$HOME/.cache/shuttle/downloads"
     ssl_fetch "$1"
 
-    failsafe mkdir -p "$working_directory/lib/$1/"
-    failsafe cp -rf "$work_directory/$1/" "$working_directory/lib/$1/"
+    failsafe mkdir -p "$working_directory/lib/"
+    failsafe cp -rf "$work_directory/$1" "$working_directory/lib/$1"
 
     if jq --arg v "$1" '.deps //= [] | .deps += [$v] | .deps |= unique' "$working_directory/shuttle.json" >"$working_directory/.shuttle.json"; then
         mv -f "$working_directory/.shuttle.json" "$working_directory/shuttle.json"

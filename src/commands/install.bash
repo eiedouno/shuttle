@@ -1,7 +1,12 @@
 source ./src/ssl/common.bash
 
 is_ssl_project() {
-    [[ -n "$1" && "$1" != ./* ]] && ssl_verify_id "$1" >/dev/null
+    if [[ -n "$1" && "$1" != ./* ]]; then
+        plnv "${C_Y}Querying SSL for project id: '${C_G}$1${C_Y}'\n"
+        ssl_verify_id "$1" >/dev/null
+    else
+        return 1
+    fi
 }
 
 remote_install() {
@@ -14,8 +19,6 @@ remote_install() {
 }
 
 get_project() {
-    [[ -n "$1" && "$1" != ./* ]] && plnv "${C_Y}Querying SSL for project id: '${C_G}$1${C_Y}'\n"
-
     if is_ssl_project "$1"; then
         ssl_install "$@"
         exit 0
@@ -47,6 +50,9 @@ eval_destfile() {
     if [[ "$USER_ID" == "0" ]]; then
         dest_file="/usr/local/bin/$PROJECT_NAME"
     else
+        if ! [[ -d "$HOME/.local/bin" ]]; then
+            mkdir -p "$HOME/.local/bin"
+        fi
         dest_file="$HOME/.local/bin/$PROJECT_NAME"
     fi
 }
