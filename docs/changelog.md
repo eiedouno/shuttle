@@ -4,9 +4,9 @@ icon: lucide/scroll-text
 
 # :lucide-scroll-text: Changelog
 
-!!! example inline end "[In Development](https://github.com/eiedouno/shuttle/tree/dev)"
+!!! success inline end "Latest"
 
-## :lucide-git-pull-request-create-arrow: Version 0.1.1a
+## :lucide-package-check: Version 0.1.1a
 
 General optimizations and QOL updates
 
@@ -15,7 +15,7 @@ General optimizations and QOL updates
 :lucide-circle-plus: Dependency checks are now a part of the progress bar.  
 :lucide-circle-plus: Added check for `$HOME/.local/bin` when installing (mkdir if it doesn't exist)  
 
-**Changed:**  
+**Fixed:**  
 :lucide-pencil-sparkles: Parameter handling for the `run` command's passed arguments.  
 :lucide-pencil-sparkles: Build files are now loaded into memory before working with them.  
 :lucide-pencil-sparkles: Build output file is now only opened once for read/write during the compilation process, instead of once per line.  
@@ -23,10 +23,7 @@ General optimizations and QOL updates
 :lucide-pencil-sparkles: `lib/texts` files are no longer read line-by-line in the compilation process.  
 :lucide-pencil-sparkles: fixed `add` command's destination duplication  
 
-
-!!! info inline end "Latest"
-
-## :lucide-package-check: Version 0.1a
+## :lucide-package: Version 0.1a
 
 Shuttle's first official rewrite and first working version
 
