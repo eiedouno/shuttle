@@ -90,7 +90,7 @@ clean_source_call() {
         done
     fi
 
-    line="${line//source/}"
+    line="${line/source/}"
 
     if [[ "$3" =~ ^\.\/ ]]; then
         funcname="$(convert_function_name "$3")"
