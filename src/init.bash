@@ -53,7 +53,7 @@ declare -g -A commands=(
     [uninstall]=1
 )
 
-shuttle_version="0.1.2"
+shuttle_version="0.1.3a"
 ssl="$HOME/.cache/shuttle/ssl.json"
 
 # If output is a terminal, then create the color values (for pipeing and redirecting)

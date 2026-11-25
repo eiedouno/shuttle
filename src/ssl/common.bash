@@ -23,7 +23,7 @@ ssl_fetch() {
     local project="$1"
     local is_url
     if [[ -z "$project" ]]; then
-        epln "Attempted to fetch a null SSL entry" "Change how your command is worded"
+        epln "Attempted to fetch a null SSL entry" "Change how your command is worded?"
     elif [[ "$project" == "__url" ]]; then
         shift
         is_url="true"
@@ -40,6 +40,7 @@ ssl_fetch() {
         }
     else
         local query="$1"
+        project="$1"
 
         [[ -z "$query" ]] && {
             epln "No url found" "Something weird happened, try re-wording your command"

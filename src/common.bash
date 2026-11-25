@@ -26,19 +26,21 @@ check_deps() {
     local key="deps"
     local -a missing=()
     local entry
+    local entryname
 
-    # One jq call: only emit entries if "deps" exists and is an array
+    # only emit entries if "deps" exists and is an array
     while IFS= read -r -d '' entry; do
         # Skip empty entries
         [[ -n "$entry" ]] || continue
 
-        # Basic user-proofing: reject path traversal / absolute paths
-        if [[ "$entry" == *"/"* || "$entry" == *".."* || "$entry" == /* ]]; then
-            epln "Invalid dependency name: ${C_G}$entry" "Dependency names must be SSL IDs\nIf this isn't your code, report this to the author"
+        entryname="${entry##*/}"
+        [[ -n "$entryname" ]] || {
+            epln "Faulty dependency name" "Dependencies cannot end with '/' or other special characters\nFor more information, check the docs"
             exit 1
-        fi
+        }
 
-        if [[ ! -d "$working_directory/lib/$entry" ]]; then
+        plnv "${C_B}Dependency: $entry ${C_LHT}($entryname)\n"
+        if [[ ! -d "$working_directory/lib/$entryname" ]]; then
             missing+=("$entry")
         fi
     done < <(jq -j --arg k "$key" '
@@ -52,14 +54,12 @@ check_deps() {
     if ((${#missing[@]} > 0)); then
         local entryindex=0
         for entry in "${missing[@]}"; do
-            sleep 1
             build_diff="Fetching dependencies: ${missing[*]:$entryindex}"
             build_progress=$((entryindex * 100 / ${#missing[@]}))
             progbar_update
 
             QUIET=true source ./src/commands/add.bash "$entry"
             ((entryindex++))
-            sleep 1
         done
     fi
 }
