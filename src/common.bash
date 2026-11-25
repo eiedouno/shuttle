@@ -70,12 +70,12 @@ check_raw_deps() {
     local -a missing=()
     local entry
 
-    # One jq call: only emit entries if "raw_deps" exists and is an array
+    # only emit entries if "raw_deps" exists and is an array
     while IFS= read -r -d '' entry; do
         # Skip empty entries
         [[ -n "$entry" ]] || continue
 
-        # Basic user-proofing: reject anything that looks like a path or has spaces
+        # reject anything that looks like a path or has spaces
         if [[ "$entry" == *"/"* || "$entry" == *".."* || "$entry" == *" "* || "$entry" == /* ]]; then
             epln "Invalid raw dependency: ${C_G}$entry" "Raw dependencies must be commands as they would be called from the shell\nIf this isn't your code, report this to the author"
             exit 1
