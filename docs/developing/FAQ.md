@@ -10,4 +10,4 @@ icon: lucide/circle-question-mark
 
 ??? info "Why is my here-doc indented?"
 
-    Don't use a here-doc. There is a [dedicated folder](tutorial/special.md) for multi-line text.
+    Don't use a here-doc. There is a [dedicated folder](concept/special.md) for multi-line text.

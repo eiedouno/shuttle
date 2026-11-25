@@ -1,7 +1,3 @@
----
-icon: lucide/rocket
----
-
 # :lucide-notepad-text: Master Tutorial
 
 **Welcome to the master tutorial! In this guide you'll learn how to:**

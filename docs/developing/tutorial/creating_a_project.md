@@ -6,9 +6,9 @@ icon: lucide/package-plus
 
 ## :lucide-folder-plus: Creating the project
 
-You'll start your learning by making a directory to store your shuttle project. Generally, projects are stored inside the `~/projects` directory, but can be anywhere on your file system.
+Generally, projects are stored inside the `~/projects` directory, but can be anywhere on your file system.
 
-Luckily, shuttle makes project creation incredibly easy. There are two entire commands dedicated to it! In this guide, we'll create a project using the `new` command inside shuttle.
+Shuttle makes project creation incredibly easy. There are two entire commands dedicated to it! To create a project, use the `new` or `init` commands inside shuttle.
 
 ??? note "Remember! Shuttle comes with a built-in help command!"
 
@@ -32,7 +32,7 @@ In all seriousness though, now you should see three new files: `project`, `shutt
 
 !!! note "Note! All shuttle script source files must always end in `.bash`"
 
-The `project` file is your projects 'front' entry point, and it's where you call your script. The entry point of the literal code is inside the `src/main.bash` file. The function `main` doesn't need to exist, it's just the template. You are free to format your code however you like.
+The `project` file is your projects 'front' entry point, and it's where you call your script. The entry point of the literal code is inside the `src/main.bash` file. **Your code starts there!** The function `main` doesn't need to exist, it's just the template. You are free to format your code however you like.
 
 Only add code to the `project` file if you're looking to start your code via a custom entry environment. If you don't know, don't modify it.
 
@@ -79,7 +79,7 @@ If you want to build a project that's in a different directory, you can specify 
 shuttle build project
 ```
 
-Simple enough, right? Like stated (and demonstrated), it's just glorified scripting.
+Simple enough, right? Just glorified scripting.
 
 The project build output location is inside the root directory of your project under the name `project.bash`.
 

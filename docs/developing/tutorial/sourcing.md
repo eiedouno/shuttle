@@ -16,7 +16,7 @@ help source
 
 ## :lucide-file-input: Sourcing a project file
 
-!!! note "This concept is explained in-depth on it's [dedicated concept page](../concept/building.md#sourcing)."
+!!! note "This concept is explained in-depth on it's [dedicated concept page](../concept/sourcing.md)."
 
 You can source a project file with two simple rules.
 
