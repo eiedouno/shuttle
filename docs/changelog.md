@@ -4,9 +4,32 @@ icon: lucide/scroll-text
 
 # :lucide-scroll-text: Changelog
 
-!!! success inline end "Latest"
+## :lucide-replace: Version 0.1.3a
 
-## :lucide-package-check: Version 0.1.1a
+!!! example inline end "[In Development](https://github.com/eiedouno/shuttle/tree/dev)"
+
+Dependency support update
+
+**Added:**  
+:lucide-circle-plus: URL-specified dependency support (no longer relies on existence inside SSL)
+
+**Fixed:**  
+:lucide-pencil-sparkles: Make version ID include the "alpha" identifier
+
+**Removed:**  
+:lucide-trash: Remove unnecessary debugging pauses inside `check_deps()`
+
+
+## :lucide-package-check: Version 0.1.2a
+
+!!! success inline end "[Latest](https://github.com/eiedouno/shuttle)"
+
+Shuttle source call fix
+
+**Fixed:**  
+:lucide-pencil-sparkles: Source calls don't redact all source keyword instances, only the call
+
+## :lucide-package: Version 0.1.1a
 
 General optimizations and QOL updates
 
