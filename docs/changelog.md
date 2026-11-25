@@ -20,7 +20,7 @@ Dependency support update
 :lucide-trash: Remove unnecessary debugging pauses inside `check_deps()`
 
 
-## :lucide-package-check: Version 0.1.2a
+## :lucide-package-check: [Version 0.1.2a](https://github.com/eiedouno/shuttle/tree/4ba3084aa19e98f1bdf975e97f5bb66ebf2320e3)
 
 !!! success inline end "[Latest](https://github.com/eiedouno/shuttle)"
 
@@ -29,7 +29,7 @@ Shuttle source call fix
 **Fixed:**  
 :lucide-pencil-sparkles: Source calls don't redact all source keyword instances, only the call
 
-## :lucide-package: Version 0.1.1a
+## :lucide-package: [Version 0.1.1a](https://github.com/eiedouno/shuttle/tree/a39b0091e4712e063e74da540874b55c72d8e644)
 
 General optimizations and QOL updates
 
@@ -46,7 +46,7 @@ General optimizations and QOL updates
 :lucide-pencil-sparkles: `lib/texts` files are no longer read line-by-line in the compilation process.  
 :lucide-pencil-sparkles: fixed `add` command's destination duplication  
 
-## :lucide-package: Version 0.1a
+## :lucide-package: [Version 0.1a](https://github.com/eiedouno/shuttle/tree/686b0b06ce58680feab974a9bfc826697d9b268a)
 
 Shuttle's first official rewrite and first working version
 
