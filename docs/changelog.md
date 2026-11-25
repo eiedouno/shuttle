@@ -4,9 +4,9 @@ icon: lucide/scroll-text
 
 # :lucide-scroll-text: Changelog
 
-## :lucide-replace: Version 0.1.3a
+## :lucide-package-check: [Version 0.1.3a](https://github.com/eiedouno/shuttle/tree/1e2625c9f5d43a2d65bae7bca5e4d3d375731fbe)
 
-!!! example inline end "[In Development](https://github.com/eiedouno/shuttle/tree/dev)"
+!!! success inline end "[Latest](https://github.com/eiedouno/shuttle)"
 
 Dependency support update
 
@@ -20,9 +20,7 @@ Dependency support update
 :lucide-trash: Remove unnecessary debugging pauses inside `check_deps()`
 
 
-## :lucide-package-check: [Version 0.1.2a](https://github.com/eiedouno/shuttle/tree/4ba3084aa19e98f1bdf975e97f5bb66ebf2320e3)
-
-!!! success inline end "[Latest](https://github.com/eiedouno/shuttle)"
+## :lucide-package: [Version 0.1.2a](https://github.com/eiedouno/shuttle/tree/4ba3084aa19e98f1bdf975e97f5bb66ebf2320e3)
 
 Shuttle source call fix
 
